@@ -1,0 +1,37 @@
+<%-- 
+    Document   : editarDepartamento
+    Created on : 16-may-2025, 20:41:23
+    Author     : emdominguez
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="s" uri="/struts-tags" %>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Inicio - Ayuntamiento de Sevilla</title>
+        <link rel="stylesheet" href="css/estilos.css">
+    </head>
+    <body>
+        <%@ include file="/includes/cabecera.jsp" %>
+
+        <h1>Editar departamento</h1>
+
+        <s:form action="editar" method="post">
+            <s:textfield name="nombre" label="Nombre" />
+            <s:textfield name="descripcion" label="Descripción" />
+            <s:textfield name="emailContacto" label="Email" readonly="true" />
+            <s:textfield name="telefonoContacto" label="Teléfono" />
+
+            <s:hidden name="id" value="id" />
+            <s:hidden name="formulario" value="editar" />
+            <s:submit value="Editar departamento" />
+        </s:form>
+
+        <a href="atras.action" class="s-button">Volver al listado</a>
+
+
+        <jsp:include page="/includes/footer.jsp" />
+    </body>
+</html>

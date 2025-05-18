@@ -1,0 +1,122 @@
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    
+
+    <!-- Configuration for the default package. -->
+    <package name="default" extends="struts-default">
+        <!-- UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUSUARIOS -->
+        <action name="registroUsuario" class="actions.usuarioAction" method="registro">
+            <result name="success">home.jsp</result>
+            <result name="error">index.jsp</result>
+            <result name="input">index.jsp</result>
+        </action>
+        <!-- LOG IN -->
+        <action name="loginUsuario" class="actions.usuarioAction" method="login">
+            <result name="success">home.jsp</result>
+            <result name="error">index.jsp</result>
+            <result name="input">index.jsp</result>
+        </action>
+        <!-- LOG OUT -->
+        <action name="logout" class="actions.usuarioAction" method="cierraSesion">
+            <result name="success">index.jsp</result>
+        </action>
+        <!-- LISTAR -->
+        <action name="listarUsuarios" class="actions.usuarioAction" method="listar">
+            <result name="success">views/usuarios/operacionesUsuarios.jsp</result>
+        </action>
+        <!-- REDIRIGIR EDITAR -->
+        <action name="editarUsuario" class="actions.usuarioAction" method="redirigir">
+            <result name="success">views/usuarios/editarUsuario.jsp</result>
+        </action>
+        <!-- EDITAR -->
+        <action name="editar" class="actions.usuarioAction" method="editar">
+            <result name="success">views/usuarios/operacionesUsuarios.jsp</result>
+            <result name="input">views/usuarios/editarUsuario.jsp</result>
+            <result name="error">/error.jsp</result>
+        </action>
+        <!-- BORRAR -->
+        <action name="borrarUsuario" class="actions.usuarioAction" method="borrar">
+            <result name="success">views/usuarios/operacionesUsuarios.jsp</result>
+            <result name="error">/error.jsp</result>
+        </action>
+        
+        
+        <!-- DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDEPARTAMENTOS -->
+        <action name="listarDepartamentos" class="actions.departamentoAction" method="listar">
+            <result name="success">views/departamentos/operacionesDepartamento.jsp</result>
+        </action>
+        <!-- REDIRIGIR CREAR -->
+        <action name="crearDepartamento" class="actions.departamentoAction" method="redirigir">
+            <result name="success">views/departamentos/crearDepartamento.jsp</result>
+        </action>
+        <!-- CREAR -->
+        <action name="crear" class="actions.departamentoAction" method="crear">
+            <result name="success">views/departamentos/operacionesDepartamento.jsp</result>
+            <result name="error">views/departamentos/crearDepartamento.jsp</result>
+            <result name="input">views/departamentos/crearDepartamento.jsp</result>
+        </action>
+        <!-- REDITIR EDITAR -->
+        <action name="editarDepartamento" class="actions.departamentoAction" method="redirigir">
+            <result name="success">views/departamentos/editarDepartamento.jsp</result>
+        </action>
+        <!-- EDITAR -->
+        <action name="editar" class="actions.departamentoAction" method="editar">
+            <result name="success">views/departamentos/operacionesDepartamento.jsp</result>
+            <result name="error">views/departamentos/editarDepartamento.jsp</result>
+            <result name="input">views/departamentos/editarDepartamento.jsp</result>
+        </action>
+        <!-- BORRAR -->
+        <action name="borrarDepartamento" class="actions.departamentoAction" method="borrar">
+            <result name="success">views/departamentos/operacionesDepartamento.jsp</result>
+            <result name="error">views/departamentos/operacionesDepartamento.jsp</result>
+        </action>
+        <!-- ATRAS -->
+        <action name="atras" class="actions.eventomunicipalAction" method="atras">
+            <result name="success">views/eventos/operacionesEventos.jsp</result>
+        </action>
+        
+        
+        <!-- EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEVENTOS -->
+        <action name="listarEventos" class="actions.eventomunicipalAction" method="listar">
+            <result name="success">views/eventos/operacionesEventos.jsp</result>
+        </action>
+        <!-- REDIRIGIR CREAR -->
+        <action name="crearEvento" class="actions.eventomunicipalAction" method="redirigir">
+            <result name="success">views/eventos/crearEvento.jsp</result>
+        </action>
+        <!-- CREAR -->
+        <action name="crear" class="actions.eventomunicipalAction" method="crear">
+            <result name="success">views/eventos/operacionesEventos.jsp</result>
+            <result name="error">views/eventos/crearEvento.jsp</result>
+            <result name="input">views/eventos/crearEvento.jsp</result>
+        </action>
+        <!-- REDITIR EDITAR -->
+        <action name="editarEvento" class="actions.eventomunicipalAction" method="redirigir">
+            <result name="success">views/eventos/editarEvento.jsp</result>
+        </action>
+        <!-- EDITAR -->
+        <action name="editar" class="actions.eventomunicipalAction" method="editar">
+            <result name="success">views/eventos/operacionesEventos.jsp</result>
+            <result name="error">views/eventos/editarEvento.jsp</result>
+            <result name="input">views/eventos/editarEvento.jsp</result>
+        </action>
+        <!-- BORRAR -->
+        <action name="borrarEvento" class="actions.eventomunicipalAction" method="borrar">
+            <result name="success">views/eventos/operacionesEventos.jsp</result>
+        </action>
+        <!-- ATRAS -->
+        <action name="atras" class="actions.eventomunicipalAction" method="atras">
+            <result name="success">views/eventos/operacionesEventos.jsp</result>
+        </action>
+        
+        
+        <!-- IIIIIIIIIIIIIIIIIINCIDENCIASSSSSSS -->
+        <action name="listarIncidencias" class="actions.incidenciaAction" method="listar">
+            <result name="success">views/incidencias/operacionesIncidencias.jsp</result>
+        </action>
+
+    </package>
+</struts>

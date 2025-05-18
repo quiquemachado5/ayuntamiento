@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 16-may-2025 12:26:28 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="dao.Departamento" table="departamento" catalog="ayuntamiento_sevilla" optimistic-lock="version">
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="nombre" type="string">
+            <column name="nombre" length="100" not-null="true" />
+        </property>
+        <property name="descripcion" type="string">
+            <column name="descripcion" length="65535" />
+        </property>
+        <property name="telefonoContacto" type="string">
+            <column name="telefono_contacto" length="20" />
+        </property>
+        <property name="emailContacto" type="string">
+            <column name="email_contacto" length="100" />
+        </property>
+        <set name="incidencias" table="incidencia" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="departamento_id" not-null="true" />
+            </key>
+            <one-to-many class="dao.Incidencia" />
+        </set>
+        <set name="tramites" table="tramite" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="departamento_id" />
+            </key>
+            <one-to-many class="dao.Tramite" />
+        </set>
+    </class>
+</hibernate-mapping>

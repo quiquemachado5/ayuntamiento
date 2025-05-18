@@ -1,0 +1,290 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 16-may-2025, 16:03:47
+    Author     : emdominguez
+*/
+
+/* Reset básico */
+/* Reset básico */
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #fdfdfd;
+    color: #333;
+}
+
+/* CABECERA */
+.cabecera {
+    background-color: #dcdcdc;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.cabecera .logo img {
+    height: 55px;
+}
+
+.usuario img {
+    height: 30px;
+    cursor: pointer;
+}
+
+/* FORMULARIOS */
+h1, h2 {
+    text-align: center;
+    color: #940444;
+}
+
+form {
+    max-width: 500px;
+    margin: 30px auto;
+    background: #fff;
+    padding: 25px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+}
+
+.s-error {
+    color: #c20000;
+    font-weight: bold;
+    margin-bottom: 10px;
+    display: block;
+}
+
+/* BOTONES */
+input[type="submit"], .s-button {
+    background-color: #940444;
+    border: none;
+    color: white;
+    padding: 10px 18px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+
+
+input[type="submit"]:hover {
+    background-color: #760338;
+}
+
+/* FOOTER */
+.footer {
+    background-color: #dbab04;
+    color: black;
+    text-align: center;
+    padding: 20px 15px;
+    font-size: 14px;
+    margin-top: 50px;
+}
+
+.footer-redes {
+    margin-top: 10px;
+}
+
+.footer-redes img {
+    width: 24px;
+    height: 24px;
+    margin: 0 10px;
+    vertical-align: middle;
+}
+.formularios-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 40px;
+    margin: 40px auto;
+    max-width: 1000px;
+    padding: 20px;
+}
+
+.form-registro, .form-login {
+    flex: 1;
+}
+
+form {
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-left: 6px solid #940444;
+    border-radius: 8px;
+    padding: 25px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    transition: all 0.3s ease-in-out;
+}
+
+form:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+input[type="text"], input[type="password"], select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 6px;
+    margin-bottom: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.tabla-usuarios {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 30px 0;
+}
+
+.tabla-usuarios th, .tabla-usuarios td {
+    border: 1px solid #ccc;
+    padding: 12px;
+    text-align: left;
+}
+
+.tabla-usuarios th {
+    background-color: #940444;
+    color: #fff;
+}
+
+.btn-accion {
+    padding: 6px 12px;
+    background-color: #940444;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    margin-right: 5px;
+    display: inline-block;
+}
+
+.btn-accion:hover {
+    background-color: #750339;
+}
+
+.btn-borrar {
+    background-color: #c0392b;
+}
+
+.btn-borrar:hover {
+    background-color: #922b21;
+}
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+}
+
+.menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.menu-card {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    text-align: center;
+    overflow: hidden;
+    transition: transform 0.2s;
+}
+
+.menu-card:hover {
+    transform: scale(1.03);
+}
+
+.menu-card img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+}
+
+.menu-card h2 {
+    font-size: 22px;
+    color: #333;
+    margin: 15px 0 10px;
+}
+
+.boton {
+    display: inline-block;
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    background-color: #940444;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+}
+
+.boton:hover {
+    background-color: #760338;
+}
+
+.nombre-usuario {
+    color: #fff;
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+
+.boton-cerrar-sesion:hover {
+    background-color: #990000;
+}
+
+.cabecera-derecha {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.boton-cerrar-sesion {
+    background-color: #940444;
+    border: none;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    padding: 0;
+    margin: 0;
+    line-height: 1;
+    height: auto;
+
+}
+.footer {
+    background-color: #e0ac00;
+    color: white;
+    text-align: center;
+    padding: 20px 10px 10px;
+    position: relative;
+}
+
+.footer-skyline img {
+    width: 100%;
+    max-height: 250px;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto;
+    padding: 0;
+}
+
+.footer-info, .footer-redes {
+    margin-top: 10px;
+}
+
+.error {
+    color: red;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+.campo-error {
+    color: red;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
