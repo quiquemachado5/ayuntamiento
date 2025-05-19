@@ -12,6 +12,8 @@ import dao.DepartamentoDAO;
 import dao.Incidencia;
 import dao.IncidenciaDAO;
 import dao.Usuario;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -31,6 +33,7 @@ public class incidenciaAction extends ActionSupport {
     private Date fechaReporte;
 
     private List<Incidencia> incidencias;
+    private List<Departamento> departamentos;
 
     public incidenciaAction() {
     }
@@ -41,15 +44,147 @@ public class incidenciaAction extends ActionSupport {
 
     public String listar() {
         IncidenciaDAO dao = new IncidenciaDAO();
-         // Obtener el usuario de sesión
+        // Obtener el usuario de sesión
         Map<String, Object> session = ActionContext.getContext().getSession();
         Usuario usuario = (Usuario) session.get("usuario");
-        if(usuario.getRol().equals("ADMIN")){
-             setIncidencias(dao.listarIncidencias());
-             return SUCCESS;
-        }else{
+        if (usuario.getRol().equals("ADMIN")) {
+            setIncidencias(dao.listarIncidencias());
+            return SUCCESS;
+        }
+        if (usuario.getRol().equals("CIUDADANO")) {
             setIncidencias(dao.listarIncidenciasPorUsuario(usuario));
             return SUCCESS;
+        } else {
+            return ERROR;
+        }
+    }
+
+    public String redirigir() {
+        DepartamentoDAO daoD = new DepartamentoDAO();
+        setDepartamentos(daoD.listarDepartamentos());
+        return SUCCESS;
+    }
+
+    public String preparaEdicion() {
+        IncidenciaDAO dao = new IncidenciaDAO();
+        DepartamentoDAO daoD = new DepartamentoDAO();
+
+        // Cargar lista de departamentos para el <select>
+        setDepartamentos(daoD.listarDepartamentos());
+
+        // Obtener la incidencia actual
+        Incidencia inci = dao.obtenerIncidenciaID(id);
+
+        if (inci != null) {
+            setId(inci.getId());
+            setTitulo(inci.getTitulo());
+            setDescripcion(inci.getDescripcion());
+            setDepartamento(inci.getDepartamento());
+            setUsuario(inci.getUsuario());
+            setEstado(inci.getEstado());
+            setFechaReporte(inci.getFechaReporte());
+            return SUCCESS;
+        } else {
+            return ERROR;
+        }
+    }
+
+    public String crear() throws ParseException {
+        IncidenciaDAO dao = new IncidenciaDAO();
+        Map<String, Object> session = ActionContext.getContext().getSession();
+        usuario = (Usuario) session.get("usuario");
+
+        Date ahora = new Date(); // fecha y hora actual completa con milisegundos
+        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        // Convertimos a String con el formato deseado (sin milisegundos)
+        String fechaStr = formato.format(ahora);
+        // Parseamos el String otra vez a Date para quitar milisegundos
+        Date fechaFormateada = formato.parse(fechaStr);
+
+        Incidencia incidencia = new Incidencia(departamento, usuario, titulo, descripcion, estado, fechaFormateada);
+
+        dao.crearIncidencia(incidencia);
+
+        if (usuario.getRol().equals("ADMIN")) {
+            setIncidencias(dao.listarIncidencias());
+            return SUCCESS;
+        }
+        if (usuario.getRol().equals("CIUDADANO")) {
+            setIncidencias(dao.listarIncidenciasPorUsuario(usuario));
+            return SUCCESS;
+        } else {
+            return ERROR;
+        }
+    }
+
+    public String atras() {
+        IncidenciaDAO dao = new IncidenciaDAO();
+        setIncidencias(dao.listarIncidencias());
+        return SUCCESS;
+    }
+
+    public String editar() throws ParseException {
+        IncidenciaDAO dao = new IncidenciaDAO();
+        Map<String, Object> session = ActionContext.getContext().getSession();
+        usuario = (Usuario) session.get("usuario");
+
+        Date ahora = new Date(); // fecha y hora actual completa con milisegundos
+        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        // Convertimos a String con el formato deseado (sin milisegundos)
+        String fechaStr = formato.format(ahora);
+        // Parseamos el String otra vez a Date para quitar milisegundos
+        Date fechaFormateada = formato.parse(fechaStr);
+
+        DepartamentoDAO daoD = new DepartamentoDAO();
+
+        // Cargar lista de departamentos para el <select>
+        setDepartamentos(daoD.listarDepartamentos());
+
+        // Obtener la incidencia actual
+        Incidencia inci = dao.obtenerIncidenciaID(id);
+        inci.setTitulo(titulo);
+        inci.setDepartamento(departamento);
+        inci.setUsuario(usuario);
+        inci.setDescripcion(descripcion);
+        System.out.println("ESTADO000000000000000000000000000: " + estado);
+        if (estado == null || estado.trim().isEmpty()) {
+            estado = inci.getEstado(); // conservar el estado anterior
+        }
+        inci.setEstado(estado);
+
+        //setFechaReporte(fechaFormateada);
+        System.out.println("////////////INCIDENCIA: " + inci.toString());
+
+        dao.editarIncidencia(inci.getId(), titulo, departamento, usuario, descripcion, estado, fechaFormateada);
+
+        if (usuario.getRol().equals("ADMIN")) {
+            setIncidencias(dao.listarIncidencias());
+            return SUCCESS;
+        }
+        if (usuario.getRol().equals("CIUDADANO")) {
+            setIncidencias(dao.listarIncidenciasPorUsuario(usuario));
+            return SUCCESS;
+        } else {
+            return ERROR;
+        }
+    }
+
+    public String borrar() {
+        IncidenciaDAO dao = new IncidenciaDAO();
+        Incidencia i = dao.obtenerIncidenciaID(id);
+        dao.borrar(i);
+        Map<String, Object> session = ActionContext.getContext().getSession();
+        usuario = (Usuario) session.get("usuario");
+
+        if (usuario.getRol().equals("ADMIN")) {
+            setIncidencias(dao.listarIncidencias());
+            return SUCCESS;
+        }
+        if (usuario.getRol().equals("CIUDADANO")) {
+            setIncidencias(dao.listarIncidenciasPorUsuario(usuario));
+            return SUCCESS;
+        } else {
+            return ERROR;
         }
     }
 
@@ -163,6 +298,20 @@ public class incidenciaAction extends ActionSupport {
      */
     public void setIncidencias(List<Incidencia> incidencias) {
         this.incidencias = incidencias;
+    }
+
+    /**
+     * @return the departamentos
+     */
+    public List<Departamento> getDepartamentos() {
+        return departamentos;
+    }
+
+    /**
+     * @param departamentos the departamentos to set
+     */
+    public void setDepartamentos(List<Departamento> departamentos) {
+        this.departamentos = departamentos;
     }
 
 }

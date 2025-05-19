@@ -17,16 +17,18 @@
     <body>
         <%@ include file="/includes/cabecera.jsp" %>
 
-
+        <!-- Si es ADMIN el usuario muestra los departamentos, y si no lo es no porque no tiene privilegios para esa operación según la lógica de la app -->
         <s:if test="%{#session.usuario.rol == 'ADMIN'}">
             <h2>Listado de departamentos</h2>
 
+            <!-- Botón crear que lleva a la vista crearDepartamento.jsp -->
             <div style="display: flex; justify-content: center; align-items: center; margin-top: 20px;">
                 <s:form action="crearDepartamento" method="post" style="all:unset;">
                     <s:submit value="Crear departamento" />
                 </s:form>
             </div>
 
+            <!-- Tabla para recorrer los departamentos del sistema -->
             <table class="tabla-usuarios">
                 <thead>
                     <tr>
@@ -45,11 +47,12 @@
                             <td><s:property value="#d.telefonoContacto" /></td>
                             <td><s:property value="#d.emailContacto" /></td>
                             <td>
+                                <!-- Botón para actualizar departamentos -->
                                 <s:url var="actualizarUrl" action="editarDepartamento">
                                     <s:param name="emailContacto" value="#d.emailContacto"/>
                                 </s:url>
                                 <a href="${actualizarUrl}" class="btn-accion">Actualizar</a>
-
+                                <!-- Botón para borrar departamento -->
                                 <s:url var="borrarUrl" action="borrarDepartamento">
                                     <s:param name="emailContacto" value="#d.emailContacto"/>
                                 </s:url>
@@ -64,14 +67,15 @@
             <h2>No tiene acceso a la gestión de departamentos</h2>
         </s:else>
 
+        <!-- Para mostrar posibles errores por no introducir algún dato -->
         <s:if test="hasActionErrors()">
             <div class="error">
                 <s:actionerror cssClass="campo-error" />
             </div>
         </s:if>
 
-
-        <a href="home.jsp" class="s-button">Menú Principal</a>
+        <!-- Acción que lleva a home.jsp -->
+        <a href="home.action" class="s-button">Menú Principal</a>
 
 
         <jsp:include page="/includes/footer.jsp" />

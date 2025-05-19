@@ -9,13 +9,13 @@
     <package name="default" extends="struts-default">
         <!-- UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUSUARIOS -->
         <action name="registroUsuario" class="actions.usuarioAction" method="registro">
-            <result name="success">home.jsp</result>
+            <result name="success" type="redirectAction">home</result>
             <result name="error">index.jsp</result>
             <result name="input">index.jsp</result>
         </action>
         <!-- LOG IN -->
         <action name="loginUsuario" class="actions.usuarioAction" method="login">
-            <result name="success">home.jsp</result>
+            <result name="success" type="redirectAction">home</result>
             <result name="error">index.jsp</result>
             <result name="input">index.jsp</result>
         </action>
@@ -40,7 +40,6 @@
         <!-- BORRAR -->
         <action name="borrarUsuario" class="actions.usuarioAction" method="borrar">
             <result name="success">views/usuarios/operacionesUsuarios.jsp</result>
-            <result name="error">/error.jsp</result>
         </action>
         
         
@@ -53,7 +52,7 @@
             <result name="success">views/departamentos/crearDepartamento.jsp</result>
         </action>
         <!-- CREAR -->
-        <action name="crear" class="actions.departamentoAction" method="crear">
+        <action name="crearD" class="actions.departamentoAction" method="crear">
             <result name="success">views/departamentos/operacionesDepartamento.jsp</result>
             <result name="error">views/departamentos/crearDepartamento.jsp</result>
             <result name="input">views/departamentos/crearDepartamento.jsp</result>
@@ -88,7 +87,7 @@
             <result name="success">views/eventos/crearEvento.jsp</result>
         </action>
         <!-- CREAR -->
-        <action name="crear" class="actions.eventomunicipalAction" method="crear">
+        <action name="crearE" class="actions.eventomunicipalAction" method="crear">
             <result name="success">views/eventos/operacionesEventos.jsp</result>
             <result name="error">views/eventos/crearEvento.jsp</result>
             <result name="input">views/eventos/crearEvento.jsp</result>
@@ -117,6 +116,41 @@
         <action name="listarIncidencias" class="actions.incidenciaAction" method="listar">
             <result name="success">views/incidencias/operacionesIncidencias.jsp</result>
         </action>
+        <!-- REDIRIGIR CREAR -->
+        <action name="crearIncidencia" class="actions.incidenciaAction" method="redirigir">
+            <result name="success">views/incidencias/crearIncidencia.jsp</result>
+        </action>
+        <!-- CREAR -->
+        <action name="crearI" class="actions.incidenciaAction" method="crear">
+            <result name="success">views/incidencias/operacionesIncidencias.jsp</result>
+            <result name="error">views/incidencias/crearIncidencia.jsp</result>
+            <result name="input">views/incidencias/crearIncidencia.jsp</result>
+        </action>
+        <!-- REDITIR EDITAR -->
+        <action name="editarIncidencia" class="actions.incidenciaAction" method="preparaEdicion">
+            <result name="success">views/incidencias/editarIncidencia.jsp</result>
+        </action>
+        <!-- EDITAR -->
+        <action name="editar" class="actions.incidenciaAction" method="editar">
+            <result name="success">views/incidencias/operacionesIncidencias.jsp</result>
+            <result name="error">views/incidencias/editarIncidencia.jsp</result>
+            <result name="input">views/incidencias/editarIncidencia.jsp</result>
+        </action>
+        <!-- BORRAR -->
+        <action name="borrarIncidencia" class="actions.incidenciaAction" method="borrar">
+            <result name="success">views/incidencias/operacionesIncidencias.jsp</result>
+        </action>
+        <!-- ATRAS -->
+        <action name="atrasatrasInci" class="actions.incidenciaAction" method="atras">
+            <result name="success" type="redirectAction">listarIncidencias</result>
+        </action>
+        
+        
+        <!-- INCIDENCIAS TOTAL -->
+        <action name="home" class="actions.totalIncidenciasAction">
+            <result name="success">home.jsp</result>
+        </action>
+
 
     </package>
 </struts>

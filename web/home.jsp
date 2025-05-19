@@ -17,6 +17,9 @@
     <body>
         <div class="container">
             <h1>Panel de Administración</h1>
+            <h3>Total de incidencias: <s:property value="totalIncidencias" /></h3>
+            <h3>Total de incidencias <s:property value="#session.usuario.nombre"/> : <s:property value="totalIncidenciasUsuarios" /></h3>
+
 
             <div class="menu-grid">
                 <div class="menu-card">
@@ -44,7 +47,7 @@
                     <h2>Incidencias</h2>
                     <a href="listarIncidencias.action" class="boton">Gestionar</a>
                 </div>
-                 <div class="menu-card">
+                <div class="menu-card">
                     <img src="img/tramites.png" alt="Gestión de Trámites" />
                     <h2>Trámites</h2>
                     <a href="listarTramites.action" class="boton">Gestionar</a>

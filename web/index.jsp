@@ -17,54 +17,60 @@
     <body>
         <jsp:include page="/includes/cabecera.jsp" />
 
-        <h1>Bienvenido al Ayuntamiento de Sevilla</h1>
-        <div class="formularios-container">
-            <div class="form-registro">
-                <h2>Registrarse</h2>
-                <s:form action="registroUsuario" method="post">
-                    <s:textfield name="nombre" label="Nombre completo" />
-                    <s:textfield name="email" label="Correo electrónico" />
-                    <s:password name="password" label="Contraseña" />
-                    <s:textfield name="telefono" label="Teléfono" />
-                    <s:textfield name="direccion" label="Dirección" />
-                    <s:select name="rol"
-                              label="Rol"
-                              list="{'CIUDADANO','ADMIN'}"
-                              listKey="top"
-                              listValue="top" />
 
-                    <s:hidden name="formulario" value="registro" />
-                    <s:submit value="Registrarse" />
-                </s:form>
+        <s:if test="#session.usuario == null">
+            <h1>Bienvenido al Ayuntamiento de Sevilla</h1>
+            <div class="formularios-container">
+                <div class="form-registro">
+                    <h2>Registrarse</h2>
+                    <s:form action="registroUsuario" method="post">
+                        <s:textfield name="nombre" label="Nombre completo" />
+                        <s:textfield name="email" label="Correo electrónico" />
+                        <s:password name="password" label="Contraseña" />
+                        <s:textfield name="telefono" label="Teléfono" />
+                        <s:textfield name="direccion" label="Dirección" />
+                        <s:select name="rol"
+                                  label="Rol"
+                                  list="{'CIUDADANO','ADMIN'}"
+                                  listKey="top"
+                                  listValue="top" />
 
-                
+                        <s:hidden name="formulario" value="registro" />
+                        <s:submit value="Registrarse" />
+                    </s:form>
+
+
+                </div>
+
+                <hr/>
+                <div class="form-login">
+                    <h2>Iniciar Sesión</h2>
+                    <s:form action="loginUsuario" method="post">
+                        <s:textfield name="emailLogin" label="Correo electrónico" />
+                        <s:password name="passwordLogin" label="Contraseña" />
+
+                        <s:hidden name="formulario" value="login" />
+                        <s:submit value="Entrar" />
+                    </s:form>
+
+                    <s:if test="hasActionErrors()">
+                        <div class="error-message">
+                            <s:actionerror />
+                        </div>
+                    </s:if>
+
+                    <s:if test="hasActionMessages()">
+                        <div class="success-message">
+                            <s:actionmessage />
+                        </div>
+                    </s:if>
+                </div>
             </div>
-
-            <hr/>
-            <div class="form-login">
-                <h2>Iniciar Sesión</h2>
-                <s:form action="loginUsuario" method="post">
-                    <s:textfield name="emailLogin" label="Correo electrónico" />
-                    <s:password name="passwordLogin" label="Contraseña" />
-
-                    <s:hidden name="formulario" value="login" />
-                    <s:submit value="Entrar" />
-                </s:form>
-
-                <s:if test="hasActionErrors()">
-                    <div class="error-message">
-                        <s:actionerror />
-                    </div>
-                </s:if>
-
-                <s:if test="hasActionMessages()">
-                    <div class="success-message">
-                        <s:actionmessage />
-                    </div>
-                </s:if>
-            </div>
-        </div>
-
+        </s:if>
+        <s:else>
+            <h2>Ya tiene una sesión activa </h2>
+            <a href="home.action" class="s-button">Menú Principal</a>
+        </s:else>
 
         <jsp:include page="/includes/footer.jsp" />
 

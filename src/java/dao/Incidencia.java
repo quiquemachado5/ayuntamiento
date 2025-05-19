@@ -84,6 +84,10 @@ public class Incidencia  implements java.io.Serializable {
     public void setFechaReporte(Date fechaReporte) {
         this.fechaReporte = fechaReporte;
     }
+    
+    public String toString(){
+        return "titulo: "+titulo +"descripcion: "+descripcion + "estado: "+estado+"fechaReporte "+fechaReporte;
+    }
 
 
 

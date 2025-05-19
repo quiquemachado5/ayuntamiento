@@ -22,11 +22,11 @@
         </div>
     </div>
 
-    <!-- Imagen skyline -->
+    <!-- Imagen fondo ciudad sevilla -->
     <div class="footer-skyline">
         <img src="img/skyline.png" alt="Skyline de Sevilla" />
     </div>
-
+    <!-- INfo footer -->
     <div class="footer-info">
         <p>Ayuntamiento de Sevilla. Plaza Nueva, 1 - C.P. 41001 | Teléfono 010 - 955 010 010</p>
         <p>Proyecto desarrollado por Enrique Machado</p>
@@ -37,6 +37,7 @@
         <a href="https://www.instagram.com/ayto_sevilla/" target="_blank"><img src="img/x.png" alt="Instagram" /></a>
     </div>
 
+    <!-- style footer para las cards de las noticias que deslizan -->
     <style>
         .footer-news-marquee {
             background: white;
@@ -113,8 +114,6 @@
         }
     </style>
 
-    <script>
-        // No se requiere JS extra para la animación, está con CSS
-    </script>
+  
 
 </footer>

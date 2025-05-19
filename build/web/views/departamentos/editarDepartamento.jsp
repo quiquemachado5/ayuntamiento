@@ -24,13 +24,12 @@
             <s:textfield name="emailContacto" label="Email" readonly="true" />
             <s:textfield name="telefonoContacto" label="Teléfono" />
 
-            <s:hidden name="id" value="id" />
-            <s:hidden name="formulario" value="editar" />
+            <s:hidden name="id" value="id" /> <!-- Hidden el id para operar en el action en referencia al departamento seleccionado -->
+            <s:hidden name="formulario" value="editar" /> <!-- El atributo formulario es para verificar en el validate desde donde viene -->
             <s:submit value="Editar departamento" />
         </s:form>
 
         <a href="atras.action" class="s-button">Volver al listado</a>
-
 
         <jsp:include page="/includes/footer.jsp" />
     </body>

@@ -17,17 +17,21 @@ import org.hibernate.Transaction;
  */
 public class DepartamentoDAO {
 
+
     public List<Departamento> listarDepartamentos() {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        org.hibernate.Transaction tx = session.beginTransaction();
 
-        String hq1 = "FROM Departamento";
-        Query q = session.createQuery(hq1);
-        List<Departamento> departamentos = new ArrayList<>();
-        departamentos = (ArrayList<Departamento>) q.list();
+        Transaction tx = session.getTransaction();
+        if (!tx.isActive()) {
+            tx.begin();
+        }
 
-        tx.commit();
-        return departamentos;
+        List<Departamento> lista = session.createQuery("from Departamento").list();
+
+        // NO commits aquí si la transacción es gestionada en otra capa.
+        // tx.commit(); // mejor no hacer commit aquí para no interferir con otras operaciones
+        return lista;
+
     }
 
     public Departamento obtenerDepartamentoEmail(String email) {

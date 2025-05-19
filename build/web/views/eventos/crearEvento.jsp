@@ -19,7 +19,7 @@
 
         <h1>Crear evento</h1>
 
-        <s:form action="crear" method="post">
+        <s:form action="crearE" method="post">
             <s:textfield name="titulo" label="Titulo" />
             <s:textfield name="descripcion" label="Descripción" />
             <s:textfield name="fecha" label="Fecha" placeholder="mm/dd/YYYY" />

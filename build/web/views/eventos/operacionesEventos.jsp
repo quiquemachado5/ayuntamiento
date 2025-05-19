@@ -63,7 +63,7 @@
             <h2>No tiene acceso a la gestión de eventos</h2>
         </s:else>
 
-        <a href="home.jsp" class="s-button">Menú Principal</a>
+         <a href="home.action" class="s-button">Menú Principal</a>
 
 
         <jsp:include page="/includes/footer.jsp" />

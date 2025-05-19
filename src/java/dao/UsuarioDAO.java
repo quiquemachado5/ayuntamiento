@@ -21,10 +21,11 @@ public class UsuarioDAO {
     public boolean crearUsuario(Usuario usuario) {
         Transaction tx = null;
         try {
-            Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+            Session session = HibernateUtil.getSessionFactory().openSession();
             tx = session.beginTransaction();
             session.save(usuario);
             tx.commit();
+            session.close();
             return true;
         } catch (Exception e) {
             if (tx != null) {
@@ -39,10 +40,11 @@ public class UsuarioDAO {
     public Usuario obtenerUsuarioPorId(int id) {
         Transaction tx = null;
         try {
-            Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+            Session session = HibernateUtil.getSessionFactory().openSession();
             tx = session.beginTransaction();
             Usuario usuario = (Usuario) session.get(Usuario.class, id);
             tx.commit();
+            session.close();
             return usuario;
         } catch (Exception e) {
             if (tx != null) {
@@ -54,18 +56,19 @@ public class UsuarioDAO {
     }
 
     public Usuario obtenerUsuarioPorEmail(String email) {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Session session = HibernateUtil.getSessionFactory().openSession();
         org.hibernate.Transaction tx = session.beginTransaction();
         String hq1 = "FROM Usuario WHERE email = :email";
         Query q = session.createQuery(hq1);
         q.setParameter("email", email);
         Usuario usuario = (Usuario) q.uniqueResult();
         tx.commit();
+        session.close();
         return usuario;
     }
 
     public boolean existeUsuario(String email, String password) {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction tx = null;
         boolean existe = false;
 
@@ -107,7 +110,7 @@ public class UsuarioDAO {
 
     // Listar todos los usuarios
     public List<Usuario> listarUsuarios() {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Session session = HibernateUtil.getSessionFactory().openSession();
         org.hibernate.Transaction tx = session.beginTransaction();
 
         String hq1 = "FROM Usuario";
@@ -116,21 +119,23 @@ public class UsuarioDAO {
         usuarios = (ArrayList<Usuario>) q.list();
 
         tx.commit();
+        session.close();
         return usuarios;
     }
 
 // Actualizar usuario
     public boolean actualizarUsuario(Usuario usuario) {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Session session = HibernateUtil.getSessionFactory().openSession();
         org.hibernate.Transaction tx = session.beginTransaction();
         session.update(usuario);
         tx.commit();
+        session.close();
         return true;
     }
 
     // Eliminar usuario
     public boolean eliminarUsuario(int id) {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Session session = HibernateUtil.getSessionFactory().openSession();
         org.hibernate.Transaction tx = session.beginTransaction();
 
         // Obtener usuario
@@ -154,6 +159,7 @@ public class UsuarioDAO {
         }
 
         tx.commit();
+        session.close();
         return true;
     }
 

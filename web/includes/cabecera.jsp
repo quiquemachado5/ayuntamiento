@@ -14,14 +14,14 @@
 
     <!-- Área de usuario a la derecha -->
     <div class="usuario" style="display: flex; align-items: center; gap: 10px;">
-        <s:if test="%{#session.usuario != null}">
+        <s:if test="%{#session.usuario != null}"> <!-- Si está logado a -->
             <span class="nombre-usuario">Bienvenido, <s:property value="#session.usuario.nombre"/> - <s:property value="#session.usuario.rol"/></span>
             <s:form action="logout" method="post" cssStyle="display:inline;all:unset;">
                 <s:submit value="Cerrar sesión" cssClass="boton-cerrar-sesion"/>
             </s:form>
 
         </s:if>
-        <s:else>
+        <s:else> <!-- Si no está logado -->
             <a href="index.jsp" title="Iniciar sesión o registrarse">
                 <img src="img/user.png" alt="Usuario" />
             </a>
