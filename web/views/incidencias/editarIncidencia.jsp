@@ -10,7 +10,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Inicio - Ayuntamiento de Sevilla</title>
+        <title>Editar incidencia - Ayuntamiento de Sevilla</title>
         <link rel="stylesheet" href="css/estilos.css">
     </head>
     <body>
@@ -18,7 +18,7 @@
 
         <h1>Editar incidencia</h1>
         <s:if test="#session.usuario.rol == 'ADMIN'">
-            <s:form action="editar" method="post">
+            <s:form action="editarI" method="post">
 
                 <s:select 
                     label="Departamento"
@@ -27,18 +27,21 @@
                     listKey="id"
                     listValue="nombre"
                     />
-
+                <!-- Se puede seleccionar el departamento editando por si el usuario ha cambiado de departamento en la incidencia -->
 
                 <s:textfield name="titulo" label="Titulo" />
                 <s:textfield name="descripcion" label="Descripción" />
+
                 <s:select 
                     name="estado" 
                     label="Estado" 
-                    list="{'ABIERTA','EN_PROCESO','RESUELTA','CERRADA'}"
+                    list="estadosValidos"
                     value="%{estado}" 
+                    disabled="%{estadosValidos.size() == 1}" 
                     />
 
 
+                <!-- El ciudadano normal solo los ve los eventos ya que es puramente informativo -->
                 <s:hidden name="id" />
 
                 <s:hidden name="formulario" value="editar" />
@@ -49,7 +52,7 @@
 
         </s:if>
         <s:else>
-            <s:form action="editar" method="post">
+            <s:form action="editarI" method="post">
 
                 <s:select 
                     label="Departamento"
@@ -67,6 +70,7 @@
                 <p>Estado: <s:property value="estado"/></p>
                 <!-- Campo oculto para enviar el estado -->
                 <input type="hidden" name="estado" value="<s:property value='estado'/>" />
+                <!-- El estado solo lo cambia el admin -->
 
                 <s:hidden name="id" />
 

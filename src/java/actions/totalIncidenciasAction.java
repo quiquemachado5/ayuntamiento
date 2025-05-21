@@ -24,6 +24,7 @@ public class totalIncidenciasAction extends ActionSupport {
     private int totalIncidenciasUsuarios;
 
     public String execute() {
+        //Hace que se vean las incidencias totales y las de usuario en home siempre que se acceda a el //
         IncidenciaDAO dao = new IncidenciaDAO();
         setTotalIncidencias(dao.totalIncidencias());
         Map<String, Object> session = ActionContext.getContext().getSession();

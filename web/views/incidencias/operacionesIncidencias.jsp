@@ -11,19 +11,21 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Inicio - Ayuntamiento de Sevilla</title>
+        <title>Incidencias - Ayuntamiento de Sevilla</title>
         <link rel="stylesheet" href="css/estilos.css">
     </head>
     <body>
         <%@ include file="/includes/cabecera.jsp" %>
 
-
+        <!-- El ciudadano normal solo ve las incidencias suyas y el admin todas -->
+        <!-- El admin por lógica no puede crear incidencias, solo las crea el ciudadano -->
         <s:if test="#session.usuario.rol == 'ADMIN'">
             <h2>Listado de incidencias</h2>
 
             <table class="tabla-usuarios">
                 <thead>
                     <tr>
+                        <th>Usuario</th>
                         <th>Departamento</th>
                         <th>Titulo</th>
                         <th>Descripcion</th>
@@ -35,21 +37,25 @@
                     <s:if test="incidencias != null && !incidencias.isEmpty()">
                         <s:iterator value="incidencias" var="i">
                             <tr>
+                                <td><s:property value="#i.usuario" /></td>
                                 <td><s:property value="#i.departamento != null ? #i.departamento.nombre : 'Sin departamento'" /></td>
                                 <td><s:property value="#i.titulo" /></td>
                                 <td><s:property value="#i.descripcion" /></td>
                                 <td><s:property value="#i.estado" /></td>
                                 <td>
-                                    <s:url var="actualizarUrl" action="editarIncidencia">
-                                        <s:param name="id" value="#i.id"/>
-                                        <s:param name="titulo" value="#i.titulo"/>
-                                    </s:url>
-                                    <a href="${actualizarUrl}" class="btn-accion">Actualizar</a>
-
-                                    <s:url var="borrarUrl" action="borrarIncidencia">
-                                        <s:param name="id" value="#i.id"/>
-                                    </s:url>
-                                    <a href="${borrarUrl}" class="btn-accion btn-borrar">Borrar</a>
+                                    <s:if test="#i.estado != 'CERRADA'">
+                                        <s:url var="actualizarUrl" action="editarIncidencia">
+                                            <s:param name="id" value="#i.id"/>
+                                            <s:param name="titulo" value="#i.titulo"/>
+                                        </s:url>
+                                        <a href="${actualizarUrl}" class="btn-accion">Actualizar</a>
+                                    </s:if>
+                                    <s:if test="#i.estado == 'CERRADA'">
+                                        <s:url var="borrarUrl" action="borrarIncidencia">
+                                            <s:param name="id" value="#i.id"/>
+                                        </s:url>
+                                        <a href="${borrarUrl}" class="btn-accion btn-borrar">Borrar</a>
+                                    </s:if>
                                 </td>
                             </tr>
                         </s:iterator>

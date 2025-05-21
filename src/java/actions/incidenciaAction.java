@@ -14,6 +14,7 @@ import dao.IncidenciaDAO;
 import dao.Usuario;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -34,6 +35,8 @@ public class incidenciaAction extends ActionSupport {
 
     private List<Incidencia> incidencias;
     private List<Departamento> departamentos;
+    private String formulario;
+    private List<String> estadosValidos;
 
     public incidenciaAction() {
     }
@@ -83,6 +86,21 @@ public class incidenciaAction extends ActionSupport {
             setUsuario(inci.getUsuario());
             setEstado(inci.getEstado());
             setFechaReporte(inci.getFechaReporte());
+            // Calcular estados válidos según estado actual
+            switch (inci.getEstado()) {
+                case "ABIERTA":
+                    setEstadosValidos(Arrays.asList("ABIERTA", "EN_PROCESO", "RESUELTA"));
+                    break;
+                case "EN_PROCESO":
+                case "RESUELTA":
+                    setEstadosValidos(Arrays.asList(inci.getEstado(), "CERRADA"));
+                    break;
+
+                case "CERRADA":
+                default:
+                    setEstadosValidos(Arrays.asList(inci.getEstado())); // solo el estado actual
+                    break;
+            }
             return SUCCESS;
         } else {
             return ERROR;
@@ -146,10 +164,31 @@ public class incidenciaAction extends ActionSupport {
         inci.setDepartamento(departamento);
         inci.setUsuario(usuario);
         inci.setDescripcion(descripcion);
-        System.out.println("ESTADO000000000000000000000000000: " + estado);
-        if (estado == null || estado.trim().isEmpty()) {
-            estado = inci.getEstado(); // conservar el estado anterior
+        
+        String estadoActual = inci.getEstado();
+
+        // Validar transición correcta
+        boolean valido = false;
+        switch (estadoActual) {
+            case "ABIERTA":
+                valido = estado.equals("ABIERTA") || estado.equals("EN_PROCESO") || estado.equals("RESUELTA");
+                break;
+            case "EN_PROCESO":
+            case "RESUELTA":
+                valido = "CERRADA".equals(estado);
+
+                break;
+            case "CERRADA":
+                valido = estado.equals("CERRADA");
+                break;
         }
+
+        if (!valido) {
+            addActionError("Cambio de estado no permitido");
+            return ERROR;
+        }
+
+        // Si es válido, actualizar estado
         inci.setEstado(estado);
 
         //setFechaReporte(fechaFormateada);
@@ -185,6 +224,30 @@ public class incidenciaAction extends ActionSupport {
             return SUCCESS;
         } else {
             return ERROR;
+        }
+    }
+
+    @Override
+    public void validate() {
+        //Validate para crear y editar
+        if ("crear".equals(formulario)) {
+            if (titulo == null || titulo.trim().isEmpty()) {
+                addFieldError("titulo", getText("error.tituloIncidencia.required"));
+            }
+            if (descripcion == null || descripcion.trim().isEmpty()) {
+                addFieldError("descripcion", getText("error.descripcionIncidencia.required"));
+            }
+            DepartamentoDAO dao = new DepartamentoDAO();
+            setDepartamentos(dao.listarDepartamentos());
+        } else if ("editar".equals(getFormulario())) {
+            if (titulo == null || titulo.trim().isEmpty()) {
+                addFieldError("titulo", getText("error.tituloIncidencia.required"));
+            }
+            if (descripcion == null || descripcion.trim().isEmpty()) {
+                addFieldError("descripcion", getText("error.descripcionIncidencia.required"));
+            }
+            DepartamentoDAO dao = new DepartamentoDAO();
+            setDepartamentos(dao.listarDepartamentos());
         }
     }
 
@@ -312,6 +375,34 @@ public class incidenciaAction extends ActionSupport {
      */
     public void setDepartamentos(List<Departamento> departamentos) {
         this.departamentos = departamentos;
+    }
+
+    /**
+     * @return the formulario
+     */
+    public String getFormulario() {
+        return formulario;
+    }
+
+    /**
+     * @param formulario the formulario to set
+     */
+    public void setFormulario(String formulario) {
+        this.formulario = formulario;
+    }
+
+    /**
+     * @return the estadosValidos
+     */
+    public List<String> getEstadosValidos() {
+        return estadosValidos;
+    }
+
+    /**
+     * @param estadosValidos the estadosValidos to set
+     */
+    public void setEstadosValidos(List<String> estadosValidos) {
+        this.estadosValidos = estadosValidos;
     }
 
 }

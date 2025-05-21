@@ -9,17 +9,17 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Editar Usuario</title>
+        <title>Editar Usuario - Ayuntamiento de Sevilla</title>
         <link rel="stylesheet" href="css/estilos.css">
     </head>
     <body>
 
         <%@ include file="/includes/cabecera.jsp" %>
 
-        
+
         <h1>Editar Usuario</h1>
 
-        <s:form action="editar" method="post">
+        <s:form action="editarU" method="post">
             <!-- Email, lo hacemos readonly porque es el identificador -->
             <s:textfield name="email" label="Email" readonly="true" />
             <s:textfield name="nombre" label="Nombre" />
@@ -36,9 +36,12 @@
             <s:submit value="Guardar Cambios" />
         </s:form>
 
+        <!-- Atrás -->
         <a href="operacionesUsuarios.jsp" class="s-button">Volver al listado</a>
 
         <jsp:include page="/includes/footer.jsp" />
+
+        <!-- Esta vista solo accede el admin -->
 
     </body>
 </html>

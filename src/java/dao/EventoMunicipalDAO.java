@@ -16,8 +16,9 @@ import org.hibernate.Transaction;
  * @author emdominguez
  */
 public class EventoMunicipalDAO {
+    //READ EVENTO
     public List<EventoMunicipal> listarEventos() {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Session session = HibernateUtil.getSessionFactory().openSession();
         org.hibernate.Transaction tx = session.beginTransaction();
 
         String hq1 = "FROM EventoMunicipal";
@@ -26,11 +27,13 @@ public class EventoMunicipalDAO {
         eventos = (ArrayList<EventoMunicipal>) q.list();
 
         tx.commit();
+        session.close();
         return eventos;
     }
 
+    //GET EVENTO ID
     public EventoMunicipal obtenerEventoId(int id) {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Session session = HibernateUtil.getSessionFactory().openSession();
         org.hibernate.Transaction tx = session.beginTransaction();
 
         String hq1 = "FROM EventoMunicipal WHERE id = :id"; // 
@@ -39,12 +42,13 @@ public class EventoMunicipalDAO {
 
         EventoMunicipal e = (EventoMunicipal) q.uniqueResult();
         tx.commit();
-        
+        session.close();
         return e;
     }
     
+    //GET EVENTO TITULO
     public EventoMunicipal obtenerEventoTitulo(String titulo) {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Session session = HibernateUtil.getSessionFactory().openSession();
         org.hibernate.Transaction tx = session.beginTransaction();
 
         String hq1 = "FROM EventoMunicipal WHERE titulo = :titulo"; // 
@@ -53,29 +57,35 @@ public class EventoMunicipalDAO {
 
         EventoMunicipal e = (EventoMunicipal) q.uniqueResult();
         tx.commit();
-        
+        session.close();
         return e;
     }
 
+    //UPDATE EVENTO
     public void actualizarEvento(EventoMunicipal evento) {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Session session = HibernateUtil.getSessionFactory().openSession();
         org.hibernate.Transaction tx = session.beginTransaction();
         session.update(evento);
         tx.commit();
+        session.close();
     }
 
+    //DELETE EVENTO
     public void borrarEvento(EventoMunicipal evento) {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Session session = HibernateUtil.getSessionFactory().openSession();
         org.hibernate.Transaction tx = session.beginTransaction();
         session.delete(evento);
         tx.commit();
+        session.close();
 
     }
 
+    //CREATE EVENTO
     public void crearEvento(EventoMunicipal evento) {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Session session = HibernateUtil.getSessionFactory().openSession();
         org.hibernate.Transaction tx = session.beginTransaction();
         session.save(evento);
         tx.commit();
+        session.close();
     }
 }

@@ -11,7 +11,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Inicio - Ayuntamiento de Sevilla</title>
+        <title>Crear departamento - Ayuntamiento de Sevilla</title>
         <link rel="stylesheet" href="css/estilos.css">
     </head>
     <body>
@@ -32,7 +32,7 @@
 
         <!-- Botón atrás para ir al listado -->
 
-        <a href="atras.action" class="s-button">Volver al listado</a>
+        <a href="atrasD.action" class="s-button">Volver al listado</a>
         <!-- Incluye el footer -->
         <jsp:include page="/includes/footer.jsp" />
     </body>

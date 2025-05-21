@@ -11,7 +11,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Inicio - Ayuntamiento de Sevilla</title>
+        <title>Crear incidencia - Ayuntamiento de Sevilla</title>
         <link rel="stylesheet" href="css/estilos.css">
     </head>
     <body>
@@ -20,6 +20,7 @@
         <h1>Crear incidencia</h1>
 
         <s:form action="crearI" method="post">
+
             <s:select 
                 label="Departamento"
                 name="departamento.id"
@@ -27,6 +28,7 @@
                 listKey="id"
                 listValue="nombre"
                 />
+            <!-- Damos la opcion de seleccionar el departamento -->
             <s:textfield name="titulo" label="Titulo" />
             <s:textfield name="descripcion" label="Descripción" />
             <s:select 
@@ -35,7 +37,7 @@
                 list="{'ABIERTA'}"
                 disabled="true"/>
             <s:hidden name="estado" value="ABIERTA"/>
-
+            <!-- Escondemos el valor de estado y abierta por defecto siempre -->
 
 
             <s:hidden name="formulario" value="crear" />

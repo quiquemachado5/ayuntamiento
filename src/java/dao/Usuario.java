@@ -114,6 +114,9 @@ public class Usuario  implements java.io.Serializable {
         this.citas = citas;
     }
 
+    public String toString(){
+        return nombre;
+    }
 
 
 

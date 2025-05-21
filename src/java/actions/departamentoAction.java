@@ -30,8 +30,8 @@ public class departamentoAction extends ActionSupport {
     private Set incidencias = new HashSet(0);
     private Set tramites = new HashSet(0);
 
-    private List<Departamento> departamentos;
-    private String formulario;
+    private List<Departamento> departamentos; /*Atributo para guardar los departamentos */
+    private String formulario; /*Atributo para el validate */
 
     public departamentoAction() {
     }
@@ -40,18 +40,18 @@ public class departamentoAction extends ActionSupport {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public String listar() {
+    public String listar() { /*Lista los departamentos*/
         DepartamentoDAO dao = new DepartamentoDAO();
         departamentos = dao.listarDepartamentos();
         setDepartamentos(departamentos);
         return SUCCESS;
     }
 
-    public String redirigir() {
+    public String redirigir() { /*Métood para redigirir a editar */
         return SUCCESS;
     }
 
-    public String crear() {
+    public String crear() { /* Crea un departamento */
         DepartamentoDAO dao = new DepartamentoDAO();
         Departamento d = new Departamento(nombre, descripcion, telefonoContacto, emailContacto, new HashSet<>(), new HashSet<>());
         dao.crearDepartamento(d);
@@ -60,7 +60,7 @@ public class departamentoAction extends ActionSupport {
         return SUCCESS;
     }
 
-    public String editar() {
+    public String editar() { /* Edita un departamento en funcion del email */
         DepartamentoDAO dao = new DepartamentoDAO();
         setNombre(nombre);
         setDescripcion(descripcion);
@@ -79,7 +79,7 @@ public class departamentoAction extends ActionSupport {
         return SUCCESS;
     }
 
-    public String borrar() {
+    public String borrar() { /* Borra el departamento en funcion del email */
         DepartamentoDAO dao = new DepartamentoDAO();
         setEmailContacto(emailContacto);
         Departamento d = dao.obtenerDepartamentoEmail(emailContacto);
@@ -88,13 +88,13 @@ public class departamentoAction extends ActionSupport {
             addActionError("No se encontró el departamento con el email especificado.");
             return ERROR;
         } else {
-            if (dao.tieneIncidenciasAsociadas(d.getId())) {
+            if (dao.tieneIncidenciasAsociadas(d.getId())) { /* Comprueba si tiene incidencias, si es así no se puede borrar hasta que se resuelvan */
                 departamentos = dao.listarDepartamentos();
                 setDepartamentos(departamentos);
                 addActionError("No se puede eliminar el departamento porque tiene incidencias asociadas.");
                 return ERROR;
             } else {
-                dao.borrarDepartamento(d.getId());
+                dao.borrarDepartamento(d.getId()); /* Si no , se borra el departamento */
                 departamentos = dao.listarDepartamentos();
                 setDepartamentos(departamentos);
                 return SUCCESS;
@@ -102,14 +102,15 @@ public class departamentoAction extends ActionSupport {
         }
     }
 
-    public String atras() {
+    public String atras() { /*Método para ir atrás  */
         DepartamentoDAO dao = new DepartamentoDAO();
         setDepartamentos(dao.listarDepartamentos());
         return SUCCESS;
+        
     }
 
     @Override
-    public void validate() {
+    public void validate() { /*  Valida que los campos estén rellenos y correctamente tanto desde crear como desde editar*/
         if ("crear".equals(formulario)) {
             if (nombre == null || nombre.trim().isEmpty()) {
                 addFieldError("nombre", getText("error.nombreDepartamento.required"));

@@ -40,6 +40,7 @@ public class eventomunicipalAction extends ActionSupport {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    //Lista eventos
     public String listar() {
         EventoMunicipalDAO dao = new EventoMunicipalDAO();
         eventos = dao.listarEventos();
@@ -48,7 +49,6 @@ public class eventomunicipalAction extends ActionSupport {
     }
 
     public String redirigir() {
-
         return SUCCESS;
     }
 
@@ -59,6 +59,8 @@ public class eventomunicipalAction extends ActionSupport {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String fechaFormateada = sdf.format(fecha);
         Date fechaConvertida = sdf.parse(fechaFormateada);
+        //Parseamos la fecha para que encaje con el formato de la BBDD
+        //Visible siempre TRUE
 
         EventoMunicipal e = new EventoMunicipal(titulo, descripcion, fechaConvertida, lugar, true);
         dao.crearEvento(e);
@@ -83,6 +85,7 @@ public class eventomunicipalAction extends ActionSupport {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String fechaFormateada = sdf.format(fecha);
         Date fechaConvertida = sdf.parse(fechaFormateada);
+       //Hacemos lo mismo que antes con la conversion de la fecha
 
         e.setFecha(fechaConvertida);
         e.setLugar(lugar);
@@ -93,6 +96,7 @@ public class eventomunicipalAction extends ActionSupport {
     }
 
     public String borrar() {
+        //Borra eventos
         EventoMunicipalDAO dao = new EventoMunicipalDAO();
         dao.borrarEvento(dao.obtenerEventoId(id));
         setEventos(dao.listarEventos());
@@ -100,6 +104,7 @@ public class eventomunicipalAction extends ActionSupport {
     }
 
     public String atras() {
+        //Action para ir atrás
         EventoMunicipalDAO dao = new EventoMunicipalDAO();
         setEventos(dao.listarEventos());
         return SUCCESS;
@@ -107,6 +112,7 @@ public class eventomunicipalAction extends ActionSupport {
 
     @Override
     public void validate() {
+        //Validate para crear y editar
         if ("crear".equals(formulario)) {
             if (titulo == null || titulo.trim().isEmpty()) {
                 addFieldError("titulo", getText("error.tituloEvento.required"));

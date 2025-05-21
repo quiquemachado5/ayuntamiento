@@ -10,13 +10,13 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Inicio - Ayuntamiento de Sevilla</title>
+        <title>Eventos - Ayuntamiento de Sevilla</title>
         <link rel="stylesheet" href="css/estilos.css">
     </head>
     <body>
         <%@ include file="/includes/cabecera.jsp" %>
 
-
+        <!-- Solo crean eventos si es admin -->
         <s:if test="%{#session.usuario.rol == 'ADMIN'}">
             <h2>Listado de eventos</h2>
 
@@ -60,10 +60,32 @@
             </table>
         </s:if>
         <s:else>
-            <h2>No tiene acceso a la gestión de eventos</h2>
+             <h2>Listado de eventos</h2>
+            <!-- El ciudadano normal solo los ve los eventos ya que es puramente informativo -->
+            <table class="tabla-usuarios">
+                <thead>
+                    <tr>
+                        <th>Titulo</th>
+                        <th>Descripción</th>
+                        <th>Fecha</th>
+                        <th>Lugar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <s:iterator value="eventos" var="e">
+                        <tr>
+                            <td><s:property value="#e.titulo" /></td>
+                            <td><s:property value="#e.descripcion" /></td>
+                            <td><s:property value="#e.fecha" /></td>
+                            <td><s:property value="#e.lugar" /></td>
+                        </tr>
+                    </s:iterator>
+                </tbody>
+            </table>
+
         </s:else>
 
-         <a href="home.action" class="s-button">Menú Principal</a>
+        <a href="home.action" class="s-button">Menú Principal</a>
 
 
         <jsp:include page="/includes/footer.jsp" />

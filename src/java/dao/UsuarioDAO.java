@@ -16,6 +16,7 @@ import org.hibernate.Transaction;
  * @author emdominguez
  */
 public class UsuarioDAO {
+    /*Uso session.close para evitar el error de Nested*/
 
     // Crear usuario
     public boolean crearUsuario(Usuario usuario) {
@@ -55,6 +56,7 @@ public class UsuarioDAO {
         }
     }
 
+    /*Obtener usuario por email*/
     public Usuario obtenerUsuarioPorEmail(String email) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         org.hibernate.Transaction tx = session.beginTransaction();
@@ -67,6 +69,7 @@ public class UsuarioDAO {
         return usuario;
     }
 
+    /*Booleano para saber si existe*/
     public boolean existeUsuario(String email, String password) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction tx = null;
@@ -74,7 +77,7 @@ public class UsuarioDAO {
 
         try {
             tx = session.beginTransaction();
-
+            /*Comprobamos con email y password*/
             String hql = "FROM Usuario u WHERE u.email = :email AND u.password = :password";
             Usuario usuario = (Usuario) session.createQuery(hql)
                     .setParameter("email", email)
@@ -96,6 +99,7 @@ public class UsuarioDAO {
         return existe;
     }
 
+    /*Login DAO*/
     public Usuario obtenerUsuarioPorCredenciales(String email, String password) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
@@ -123,7 +127,7 @@ public class UsuarioDAO {
         return usuarios;
     }
 
-// Actualizar usuario
+    // Actualizar usuario
     public boolean actualizarUsuario(Usuario usuario) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         org.hibernate.Transaction tx = session.beginTransaction();

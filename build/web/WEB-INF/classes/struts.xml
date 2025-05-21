@@ -32,7 +32,7 @@
             <result name="success">views/usuarios/editarUsuario.jsp</result>
         </action>
         <!-- EDITAR -->
-        <action name="editar" class="actions.usuarioAction" method="editar">
+        <action name="editarU" class="actions.usuarioAction" method="editar">
             <result name="success">views/usuarios/operacionesUsuarios.jsp</result>
             <result name="input">views/usuarios/editarUsuario.jsp</result>
             <result name="error">/error.jsp</result>
@@ -62,7 +62,7 @@
             <result name="success">views/departamentos/editarDepartamento.jsp</result>
         </action>
         <!-- EDITAR -->
-        <action name="editar" class="actions.departamentoAction" method="editar">
+        <action name="editarD" class="actions.departamentoAction" method="editar">
             <result name="success">views/departamentos/operacionesDepartamento.jsp</result>
             <result name="error">views/departamentos/editarDepartamento.jsp</result>
             <result name="input">views/departamentos/editarDepartamento.jsp</result>
@@ -73,8 +73,8 @@
             <result name="error">views/departamentos/operacionesDepartamento.jsp</result>
         </action>
         <!-- ATRAS -->
-        <action name="atras" class="actions.eventomunicipalAction" method="atras">
-            <result name="success">views/eventos/operacionesEventos.jsp</result>
+        <action name="atrasD" class="actions.departamentoAction" method="atras">
+            <result name="success">views/departamentos/operacionesDepartamento.jsp</result>
         </action>
         
         
@@ -97,7 +97,7 @@
             <result name="success">views/eventos/editarEvento.jsp</result>
         </action>
         <!-- EDITAR -->
-        <action name="editar" class="actions.eventomunicipalAction" method="editar">
+        <action name="editarE" class="actions.eventomunicipalAction" method="editar">
             <result name="success">views/eventos/operacionesEventos.jsp</result>
             <result name="error">views/eventos/editarEvento.jsp</result>
             <result name="input">views/eventos/editarEvento.jsp</result>
@@ -131,7 +131,7 @@
             <result name="success">views/incidencias/editarIncidencia.jsp</result>
         </action>
         <!-- EDITAR -->
-        <action name="editar" class="actions.incidenciaAction" method="editar">
+        <action name="editarI" class="actions.incidenciaAction" method="editar">
             <result name="success">views/incidencias/operacionesIncidencias.jsp</result>
             <result name="error">views/incidencias/editarIncidencia.jsp</result>
             <result name="input">views/incidencias/editarIncidencia.jsp</result>
@@ -150,7 +150,86 @@
         <action name="home" class="actions.totalIncidenciasAction">
             <result name="success">home.jsp</result>
         </action>
+        
+        
+        <!-- TTTTTTTTTTTTTTTTTTTTTTTTTRAMITES -->
+        <action name="listarTramites" class="actions.tramiteAction" method="listar">
+            <result name="success">views/tramites/operacionesTramites.jsp</result>
+        </action>
+        <!-- REDIRIGIR CREAR -->
+        <action name="crearTramite" class="actions.tramiteAction" method="redirigir">
+            <result name="success">views/tramites/crearTramite.jsp</result>
+        </action>
+        <!-- CREAR -->
+        <action name="crearT" class="actions.tramiteAction" method="crear">
+            <result name="success">views/tramites/operacionesTramites.jsp</result>
+            <result name="error">views/tramites/crearTramite.jsp</result>
+            <result name="input">views/tramites/crearTramite.jsp</result>
+        </action>
+        <!-- REDIGIR EDITAR -->
+        <action name="editarTramite" class="actions.tramiteAction" method="preparaEdicion">
+            <result name="success">views/tramites/editarTramite.jsp</result>
+        </action>
+        <!-- EDITAR -->
+        <action name="editarT" class="actions.tramiteAction" method="editar">
+            <result name="success">views/tramites/operacionesTramites.jsp</result>
+            <result name="error">views/tramites/editarTramite.jsp</result>
+            <result name="input">views/tramites/editarTramite.jsp</result>
+        </action>
+        <!-- BORRAR -->
+        <action name="borrarTramite" class="actions.tramiteAction" method="borrar">
+            <result name="success">views/tramites/operacionesTramites.jsp</result>
+        </action>
+        <!-- ATRAS -->
+        <action name="atrasatrasTra" class="actions.tramiteAction" method="atras">
+            <result name="success" type="redirectAction">listarTramites</result>
+        </action>
+        
+        
+        
+        <!-- CITTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTAS -->
+        <action name="listarCitas" class="actions.citasAction" method="listar">
+            <result name="success">views/citas/operacionesCitas.jsp</result>
+        </action>
+        <!-- REDIRIGIR CREAR -->
+        <action name="crearCita" class="actions.citasAction" method="redirigir">
+            <result name="success">views/citas/crearCita.jsp</result>
+        </action>
+        <!-- CREAR -->
+        <action name="crearC" class="actions.citasAction" method="crear">
+            <result name="success">views/citas/operacionesCitas.jsp</result>
+            <result name="error">views/citas/crearCita.jsp</result>
+            <result name="input">views/citas/crearCita.jsp</result>
+        </action>
+        <!-- REDIGIR EDITAR -->
+        <action name="editarCita" class="actions.citasAction" method="preparaEdicion">
+            <result name="success">views/citas/editarCita.jsp</result>
+        </action>
+        <!-- EDITAR -->
+        <action name="editarC" class="actions.citasAction" method="editar">
+            <result name="success">views/citas/operacionesCitas.jsp</result>
+            <result name="error">views/citas/editarCita.jsp</result>
+            <result name="input">views/citas/editarCita.jsp</result>
+        </action>
+        <!-- BORRAR -->
+        <action name="borrarCita" class="actions.citasAction" method="borrar">
+            <result name="success">views/citas/operacionesCitas.jsp</result>
+        </action>
+        
+        <!-- BORRAR -->
+        <action name="citaPDF" class="actions.citasAction" method="generarPDF">
+            <result name="pdf" type="stream">
+                <param name="contentType">application/pdf</param>
+                <param name="inputName">pdfStream</param>
+                <param name="contentDisposition">attachment;filename="cita.pdf"</param>
+                <param name="bufferSize">1024</param>
+            </result>
+        </action>
 
 
+        <!-- ATRAS -->
+        <action name="atrasatrasCit" class="actions.citasAction" method="atras">
+            <result name="success" type="redirectAction">listarCitas</result>
+        </action>
     </package>
 </struts>

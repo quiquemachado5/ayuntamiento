@@ -42,6 +42,8 @@ public class usuarioAction extends ActionSupport {
     public String execute() throws Exception {
         throw new UnsupportedOperationException("Not supported yet.");
     }
+    
+    /*Casi siempre al final de cualquier método se lista la lista para mostrarla actualizada respecto a la BBDD*/
 
     public String registro() {
         setNombre(nombre);
@@ -53,8 +55,10 @@ public class usuarioAction extends ActionSupport {
         UsuarioDAO dao = new UsuarioDAO();
         if (dao.existeUsuario(email, password) == true) {
             addActionError("Usuario existente. Por favor, inicia sesión.");
+            /*Si ya existe, lo manda a logarse*/
             return ERROR;
         } else {
+            /*Sino se crea un nuevo usuario y se crea la sesión*/
             Usuario usuario = new Usuario(nombre, email, password, telefono, direccion, rol, new HashSet<>(), new HashSet<>());
             if (dao.crearUsuario(usuario) == true) {
                 ActionContext.getContext().getSession().put("usuario", usuario); // Guardamos el usuario en sesión
@@ -72,6 +76,7 @@ public class usuarioAction extends ActionSupport {
     }
 
     public String login() {
+        /*Se comprueba que existe y se crea la sesión*/
         setEmailLogin(emailLogin);
         setPasswordLogin(passwordLogin);
         UsuarioDAO dao = new UsuarioDAO();
@@ -88,6 +93,7 @@ public class usuarioAction extends ActionSupport {
             }
             return SUCCESS;
         } else {
+            /*Sino existe, al revés que antes, se manda a registrar primero */
             addActionError("Usuario no existente. Por favor, regístrese primero.");
             return ERROR;
         }
@@ -103,6 +109,7 @@ public class usuarioAction extends ActionSupport {
     }
 
     public String cierraSesion() {
+        /*Limpia la sesión entera (solo tenemos usuario asique se elimina y se manda a login)*/
         ActionContext.getContext().getSession().clear();
         return SUCCESS;
     }
@@ -150,6 +157,7 @@ public class usuarioAction extends ActionSupport {
 
     @Override
     public void validate() {
+        /*Valida que en editar o registro se completan correctamente todos los campos*/
         if ("registro".equals(formulario)) {
             if (nombre == null || nombre.trim().isEmpty()) {
                 addFieldError("nombre", getText("error.nombre.required"));

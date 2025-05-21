@@ -10,7 +10,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Inicio - Ayuntamiento de Sevilla</title>
+        <title>Editar departamento - Ayuntamiento de Sevilla</title>
         <link rel="stylesheet" href="css/estilos.css">
     </head>
     <body>
@@ -18,18 +18,20 @@
 
         <h1>Editar departamento</h1>
 
-        <s:form action="editar" method="post">
+        <s:form action="editarD" method="post">
             <s:textfield name="nombre" label="Nombre" />
             <s:textfield name="descripcion" label="Descripción" />
-            <s:textfield name="emailContacto" label="Email" readonly="true" />
+            <p><strong>Email:</strong> <s:property value="emailContacto" /></p> <!-- Muestro el email -->
+            <s:hidden name="emailContacto" value="%{emailContacto}" /> <!-- Lo paso en hidden para que tenga un valor en el action -->
+
             <s:textfield name="telefonoContacto" label="Teléfono" />
 
-            <s:hidden name="id" value="id" /> <!-- Hidden el id para operar en el action en referencia al departamento seleccionado -->
+            <s:hidden name="id" /> <!-- Hidden el id para operar en el action en referencia al departamento seleccionado -->
             <s:hidden name="formulario" value="editar" /> <!-- El atributo formulario es para verificar en el validate desde donde viene -->
             <s:submit value="Editar departamento" />
         </s:form>
 
-        <a href="atras.action" class="s-button">Volver al listado</a>
+        <a href="atrasD.action" class="s-button">Volver al listado</a>
 
         <jsp:include page="/includes/footer.jsp" />
     </body>

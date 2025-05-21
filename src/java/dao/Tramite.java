@@ -76,6 +76,9 @@ public class Tramite  implements java.io.Serializable {
         this.citas = citas;
     }
 
+    public String toString(){
+        return this.departamento + ":  " + this.nombre;
+    }
 
 
 

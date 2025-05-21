@@ -11,12 +11,12 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Inicio - Ayuntamiento de Sevilla</title>
+        <title>Usuarios - Ayuntamiento de Sevilla</title>
         <link rel="stylesheet" href="css/estilos.css">
     </head>
     <body>
         <%@ include file="/includes/cabecera.jsp" %>
-
+        <!-- Sino es admin no puede entrar el usuario ya que la lógica es que el admin elimnine o actualice usuarios, se registran (crean) en el login -->
         <s:if test="%{#session.usuario.rol == 'ADMIN'}">
             <h2>Listado de usuarios</h2>
             <table class="tabla-usuarios">
@@ -55,6 +55,7 @@
             </table>
         </s:if>
         <s:else>
+             <!-- Esta pantalla le sale al usuario tipo CIUDADANO -->
             <h2>No tiene acceso a la gestión de usuarios</h2>
         </s:else>
 

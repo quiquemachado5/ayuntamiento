@@ -17,9 +17,9 @@ import org.hibernate.Transaction;
  */
 public class DepartamentoDAO {
 
-
     public List<Departamento> listarDepartamentos() {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        /* READ  */
+        Session session = HibernateUtil.getSessionFactory().openSession();
 
         Transaction tx = session.getTransaction();
         if (!tx.isActive()) {
@@ -28,14 +28,14 @@ public class DepartamentoDAO {
 
         List<Departamento> lista = session.createQuery("from Departamento").list();
 
-        // NO commits aquí si la transacción es gestionada en otra capa.
         // tx.commit(); // mejor no hacer commit aquí para no interferir con otras operaciones
         return lista;
 
     }
 
     public Departamento obtenerDepartamentoEmail(String email) {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        /* READ email */
+        Session session = HibernateUtil.getSessionFactory().openSession();
         org.hibernate.Transaction tx = session.beginTransaction();
 
         String hq1 = "FROM Departamento WHERE emailContacto = :email"; // 
@@ -44,24 +44,27 @@ public class DepartamentoDAO {
 
         Departamento d = (Departamento) q.uniqueResult();
         tx.commit();
-
+        session.close();
         return d;
     }
 
     public void actualizarDepartamento(Departamento departamento) {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        /* UPDATE */
+        Session session = HibernateUtil.getSessionFactory().openSession();
         org.hibernate.Transaction tx = session.beginTransaction();
         session.update(departamento);
         tx.commit();
+        session.close();
     }
 
     public void borrarDepartamento(int departamentoId) {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        /* DELETE */
+        Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction tx = null;
         try {
             tx = session.beginTransaction();
 
-            // Borrar trámites
+            // Borrar trámites primero
             Query deleteTramites = session.createQuery("DELETE FROM Tramite t WHERE t.departamento.id = :depId");
             deleteTramites.setParameter("depId", departamentoId);
             deleteTramites.executeUpdate();
@@ -72,6 +75,7 @@ public class DepartamentoDAO {
             deleteDepartamento.executeUpdate();
 
             tx.commit();
+            session.close();
         } catch (Exception e) {
             if (tx != null) {
                 tx.rollback();
@@ -82,6 +86,7 @@ public class DepartamentoDAO {
     }
 
     public boolean tieneIncidenciasAsociadas(int idDepartamento) {
+        /* Método para ver si hay incidencias asociadas */
         Session session = HibernateUtil.getSessionFactory().openSession();
         Long count = (Long) session.createQuery(
                 "select count(i.id) from Incidencia i where i.departamento.id = :id")
@@ -92,10 +97,14 @@ public class DepartamentoDAO {
     }
 
     public void crearDepartamento(Departamento departamento) {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        /* CREATE */
+        Session session = HibernateUtil.getSessionFactory().openSession();
         org.hibernate.Transaction tx = session.beginTransaction();
         session.save(departamento);
         tx.commit();
+        session.close();
     }
+    
+    
 
 }

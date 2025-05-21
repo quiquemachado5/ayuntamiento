@@ -11,14 +11,14 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Inicio - Ayuntamiento de Sevilla</title>
+        <title>Crear evento - Ayuntamiento de Sevilla</title>
         <link rel="stylesheet" href="css/estilos.css">
     </head>
     <body>
         <%@ include file="/includes/cabecera.jsp" %>
 
         <h1>Crear evento</h1>
-
+        <!-- Formulario básico para crear el evento -->
         <s:form action="crearE" method="post">
             <s:textfield name="titulo" label="Titulo" />
             <s:textfield name="descripcion" label="Descripción" />
@@ -28,8 +28,8 @@
             <s:hidden name="formulario" value="crear" />
             <s:submit value="Crear evento" />
         </s:form>
-
-
+        
+        <!-- Botón atrás para ir al listado -->
        <a href="atras.action" class="s-button">Volver al listado</a>
 
 
