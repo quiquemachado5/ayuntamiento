@@ -9,6 +9,7 @@ import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import dao.Departamento;
 import dao.DepartamentoDAO;
+import dao.EmailUtil;
 import dao.Incidencia;
 import dao.IncidenciaDAO;
 import dao.Usuario;
@@ -18,6 +19,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import javax.mail.MessagingException;
 
 /**
  *
@@ -37,6 +39,8 @@ public class incidenciaAction extends ActionSupport {
     private List<Departamento> departamentos;
     private String formulario;
     private List<String> estadosValidos;
+
+    private String emailUsuario;
 
     public incidenciaAction() {
     }
@@ -107,7 +111,7 @@ public class incidenciaAction extends ActionSupport {
         }
     }
 
-    public String crear() throws ParseException {
+    public String crear() throws ParseException, MessagingException {
         IncidenciaDAO dao = new IncidenciaDAO();
         Map<String, Object> session = ActionContext.getContext().getSession();
         usuario = (Usuario) session.get("usuario");
@@ -120,8 +124,14 @@ public class incidenciaAction extends ActionSupport {
         Date fechaFormateada = formato.parse(fechaStr);
 
         Incidencia incidencia = new Incidencia(departamento, usuario, titulo, descripcion, estado, fechaFormateada);
-
         dao.crearIncidencia(incidencia);
+
+        // Enviar correo de confirmación
+        String asunto = "Confirmación del trámite: " + incidencia.getTitulo();
+        String mensaje = "Su trámite ha sido creado correctamente con la siguiente descripción: " + incidencia.getDescripcion();
+
+        setEmailUsuario(emailUsuario);
+        EmailUtil.sendEmail(emailUsuario, asunto, mensaje);
 
         if (usuario.getRol().equals("ADMIN")) {
             setIncidencias(dao.listarIncidencias());
@@ -164,7 +174,7 @@ public class incidenciaAction extends ActionSupport {
         inci.setDepartamento(departamento);
         inci.setUsuario(usuario);
         inci.setDescripcion(descripcion);
-        
+
         String estadoActual = inci.getEstado();
 
         // Validar transición correcta
@@ -236,6 +246,11 @@ public class incidenciaAction extends ActionSupport {
             }
             if (descripcion == null || descripcion.trim().isEmpty()) {
                 addFieldError("descripcion", getText("error.descripcionIncidencia.required"));
+            }
+            if (emailUsuario == null || emailUsuario.trim().isEmpty()) {
+                addFieldError("emailUsuario", getText("error.emailUsuarioTramite.required"));
+            } else if (!emailUsuario.matches("^[\\w.-]+@[\\w.-]+\\.\\w{2,}$")) {
+                addFieldError("emailUsuario", "El formato del correo no es válido.");
             }
             DepartamentoDAO dao = new DepartamentoDAO();
             setDepartamentos(dao.listarDepartamentos());
@@ -403,6 +418,20 @@ public class incidenciaAction extends ActionSupport {
      */
     public void setEstadosValidos(List<String> estadosValidos) {
         this.estadosValidos = estadosValidos;
+    }
+
+    /**
+     * @return the emailUsuario
+     */
+    public String getEmailUsuario() {
+        return emailUsuario;
+    }
+
+    /**
+     * @param emailUsuario the emailUsuario to set
+     */
+    public void setEmailUsuario(String emailUsuario) {
+        this.emailUsuario = emailUsuario;
     }
 
 }

@@ -39,11 +39,12 @@
                             <td><s:property value="#u.direccion" /></td>
                             <td><s:property value="#u.rol" /></td>
                             <td>
+                                <%-- 
                                 <s:url var="actualizarUrl" action="editarUsuario">
                                     <s:param name="email" value="#u.email"/>
                                 </s:url>
                                 <a href="${actualizarUrl}" class="btn-accion">Actualizar</a>
-
+                                --%>
                                 <s:url var="borrarUrl" action="borrarUsuario">
                                     <s:param name="email" value="#u.email"/>
                                 </s:url>
@@ -55,7 +56,7 @@
             </table>
         </s:if>
         <s:else>
-             <!-- Esta pantalla le sale al usuario tipo CIUDADANO -->
+            <!-- Esta pantalla le sale al usuario tipo CIUDADANO -->
             <h2>No tiene acceso a la gestión de usuarios</h2>
         </s:else>
 

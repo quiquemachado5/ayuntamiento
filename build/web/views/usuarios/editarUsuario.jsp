@@ -37,7 +37,7 @@
         </s:form>
 
         <!-- Atrás -->
-        <a href="operacionesUsuarios.jsp" class="s-button">Volver al listado</a>
+        <a href="atrasatrasUsu.action" class="s-button">Volver al listado</a>
 
         <jsp:include page="/includes/footer.jsp" />
 

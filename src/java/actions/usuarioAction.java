@@ -42,9 +42,8 @@ public class usuarioAction extends ActionSupport {
     public String execute() throws Exception {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-    
-    /*Casi siempre al final de cualquier método se lista la lista para mostrarla actualizada respecto a la BBDD*/
 
+    /*Casi siempre al final de cualquier método se lista la lista para mostrarla actualizada respecto a la BBDD*/
     public String registro() {
         setNombre(nombre);
         setEmail(email);
@@ -152,6 +151,29 @@ public class usuarioAction extends ActionSupport {
         usuarios = dao.listarUsuarios();
         setUsuarios(usuarios);
 
+        return SUCCESS;
+    }
+
+    public String verperfil() {
+        return SUCCESS;
+    }
+
+    public String actualizar() {
+        UsuarioDAO dao = new UsuarioDAO();
+        Usuario usuario = dao.obtenerUsuarioPorId(id);
+        usuario.setNombre(nombre);
+        usuario.setEmail(email);
+        usuario.setPassword(password);
+        usuario.setTelefono(telefono);
+        usuario.setDireccion(direccion);
+        dao.actualizarUsuario(usuario);
+        ActionContext.getContext().getSession().put("usuario", usuario); // Guardamos el usuario en sesión
+        return SUCCESS;
+    }
+
+    public String atras() {
+        UsuarioDAO dao = new UsuarioDAO();
+        setUsuarios(dao.listarUsuarios());
         return SUCCESS;
     }
 

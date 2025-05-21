@@ -33,7 +33,6 @@
             <s:label label="Activo" value="Sí" />
             <s:hidden name="activo" value="true" />
 
-
             <!-- Escondemos el valor de estado y en activo por defecto siempre -->
 
             <s:hidden name="formulario" value="crear" />

@@ -16,6 +16,12 @@
     <div class="usuario" style="display: flex; align-items: center; gap: 10px;">
         <s:if test="%{#session.usuario != null}"> <!-- Si está logado a -->
             <span class="nombre-usuario">Bienvenido, <s:property value="#session.usuario.nombre"/> - <s:property value="#session.usuario.rol"/></span>
+
+            <!-- Botón Ver perfil -->
+            <s:form action="perfil" method="post" cssStyle="display:inline;all:unset;">
+                <s:submit value="Ver perfil" cssClass="boton-cerrar-sesion"/>
+            </s:form>
+
             <s:form action="logout" method="post" cssStyle="display:inline;all:unset;">
                 <s:submit value="Cerrar sesión" cssClass="boton-cerrar-sesion"/>
             </s:form>

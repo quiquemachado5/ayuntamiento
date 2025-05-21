@@ -41,7 +41,18 @@
         <action name="borrarUsuario" class="actions.usuarioAction" method="borrar">
             <result name="success">views/usuarios/operacionesUsuarios.jsp</result>
         </action>
-        
+        <!-- VER PERFIL -->
+        <action name="perfil" class="actions.usuarioAction" method="verperfil">
+            <result name="success">perfil.jsp</result>
+        </action>
+         <!-- VER PERFIL -->
+        <action name="actualizarPerfil" class="actions.usuarioAction" method="actualizar">
+            <result name="success">home.jsp</result>
+        </action>
+        <!-- ATRAS -->
+        <action name="atrasatrasUsu" class="actions.usuarioAction" method="atras">
+            <result name="success" type="redirectAction">listarUsuarios</result>
+        </action>
         
         <!-- DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDEPARTAMENTOS -->
         <action name="listarDepartamentos" class="actions.departamentoAction" method="listar">

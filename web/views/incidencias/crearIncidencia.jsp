@@ -39,6 +39,8 @@
             <s:hidden name="estado" value="ABIERTA"/>
             <!-- Escondemos el valor de estado y abierta por defecto siempre -->
 
+            <!--Correo al que se enviara -->
+            <s:textfield name="emailUsuario" label="Correo electrónico" />
 
             <s:hidden name="formulario" value="crear" />
             <s:submit value="Crear incidencia" />

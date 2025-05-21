@@ -11,6 +11,7 @@ import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import dao.Departamento;
 import dao.DepartamentoDAO;
+import dao.EmailUtil;
 import dao.Incidencia;
 import dao.IncidenciaDAO;
 import dao.Tramite;
@@ -39,6 +40,8 @@ public class tramiteAction extends ActionSupport {
     private List<Tramite> tramites;
     private List<Departamento> departamentos;
     private String formulario;
+
+    private String emailUsuario;
 
     public tramiteAction() {
     }
@@ -118,12 +121,12 @@ public class tramiteAction extends ActionSupport {
         setTramites(dao.listarTramites());
         return SUCCESS;
     }
-    
-    public String borrar(){
+
+    public String borrar() {
         TramiteDAO dao = new TramiteDAO();
         Tramite t = dao.obtenerTramitePorId(id);
         dao.eliminarTramite(t);
-        
+
         Map<String, Object> session = ActionContext.getContext().getSession();
         Usuario usuario = (Usuario) session.get("usuario");
 
@@ -138,7 +141,7 @@ public class tramiteAction extends ActionSupport {
             return ERROR;
         }
     }
-    
+
     public void validate() {
         //Validate para crear y editar
         if ("crear".equals(formulario)) {
@@ -286,6 +289,20 @@ public class tramiteAction extends ActionSupport {
      */
     public void setFormulario(String formulario) {
         this.formulario = formulario;
+    }
+
+    /**
+     * @return the emailUsuario
+     */
+    public String getEmailUsuario() {
+        return emailUsuario;
+    }
+
+    /**
+     * @param emailUsuario the emailUsuario to set
+     */
+    public void setEmailUsuario(String emailUsuario) {
+        this.emailUsuario = emailUsuario;
     }
 
 }
