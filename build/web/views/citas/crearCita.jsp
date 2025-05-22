@@ -20,6 +20,7 @@
         <h1>Pedir cita</h1>
 
         <s:form action="crearC" method="post">
+             <!-- Selecciona un trámite para poder crear la cita el usuario-->
             <s:select 
                 label="Tramite"
                 name="tramite.id"
@@ -34,6 +35,7 @@
             <s:submit value="Pedir cita" />
         </s:form>
 
+        <!-- botón que va hacia el listado, esto se repite en todas las vistas -->
         <a href="atrasatrasCit.action" class="s-button">Volver al listado</a>
 
         <jsp:include page="/includes/footer.jsp" />

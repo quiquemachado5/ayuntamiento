@@ -16,6 +16,15 @@
     </head>
     <body>
         <jsp:include page="/includes/cabecera.jsp" />
+        
+         <!-- Mensajes de acción (éxito) -->
+        <s:actionmessage cssClass="mensaje-exito" />
+
+        <!-- Mensajes de error generales -->
+        <s:actionerror cssClass="mensaje-error" />
+
+        <!-- Mensajes de error por campo (del validate) -->
+        <s:fielderror cssClass="mensaje-error-campo" />
 
 
         <s:if test="#session.usuario == null">
@@ -52,18 +61,11 @@
                         <s:hidden name="formulario" value="login" />
                         <s:submit value="Entrar" />
                     </s:form>
+                    <s:form action="olvidar" method="post">
+                        <s:submit value="He olvidado mi contraseña" />
+                    </s:form>
 
-                    <s:if test="hasActionErrors()">
-                        <div class="error-message">
-                            <s:actionerror />
-                        </div>
-                    </s:if>
 
-                    <s:if test="hasActionMessages()">
-                        <div class="success-message">
-                            <s:actionmessage />
-                        </div>
-                    </s:if>
                 </div>
             </div>
         </s:if>

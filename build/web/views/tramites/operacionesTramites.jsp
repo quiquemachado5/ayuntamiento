@@ -16,6 +16,15 @@
     </head>
     <body>
         <%@ include file="/includes/cabecera.jsp" %>
+        
+        <!-- Mensajes de acción (éxito) -->
+        <s:actionmessage cssClass="mensaje-exito" />
+
+        <!-- Mensajes de error generales -->
+        <s:actionerror cssClass="mensaje-error" />
+
+        <!-- Mensajes de error por campo (del validate) -->
+        <s:fielderror cssClass="mensaje-error-campo" />
 
         <s:if test="#session.usuario.rol == 'ADMIN'">
             <h2>Listado de trámites</h2>
@@ -45,6 +54,7 @@
                                 <td><s:property value="#t.descripcion" /></td>
                                 <td><s:property value="#t.activo ? 'Sí' : 'No'" /></td>
                                 <td>
+                                     <!-- Solo borra y edita el admin los trámites, el usuario los ve y nada más -->
                                     <s:url var="actualizarUrl" action="editarTramite">
                                         <s:param name="id" value="#t.id"/>
                                     </s:url>
@@ -99,7 +109,6 @@
         </s:else>
 
         <a href="home.action" class="s-button">Menú Principal</a>
-
 
         <jsp:include page="/includes/footer.jsp" />
     </body>

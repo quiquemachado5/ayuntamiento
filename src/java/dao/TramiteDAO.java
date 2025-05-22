@@ -16,6 +16,7 @@ import org.hibernate.Session;
 public class TramiteDAO {
 
     public List<Tramite> listarTramites() {
+        //READ
         Session session = HibernateUtil.getSessionFactory().openSession();
         org.hibernate.Transaction tx = session.beginTransaction();
 
@@ -29,6 +30,7 @@ public class TramiteDAO {
     
     
     public void crearTramite(Tramite tramite) {
+        //create
         Session session = HibernateUtil.getSessionFactory().openSession();
         org.hibernate.Transaction tx = null;
 
@@ -56,6 +58,7 @@ public class TramiteDAO {
     }
     
     public void actualizarTramite(Tramite tramite) {
+        //update
         Session session = HibernateUtil.getSessionFactory().openSession();
         org.hibernate.Transaction tx = null;
 
@@ -72,6 +75,7 @@ public class TramiteDAO {
     }
     
     public void eliminarTramite(Tramite tramite) {
+        //DELETE
         Session session = HibernateUtil.getSessionFactory().openSession();
         org.hibernate.Transaction tx = null;
 

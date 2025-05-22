@@ -26,6 +26,7 @@
             <s:password name="password" label="Contraseña" />
             <s:textfield name="telefono" label="Teléfono" />
             <s:textfield name="direccion" label="Dirección" />
+            <!-- Se selecciona que rol tendrá, USER o ADMIN -->
             <s:select name="rol"
                       label="Rol"
                       list="{'CIUDADANO','ADMIN'}"
@@ -41,7 +42,7 @@
 
         <jsp:include page="/includes/footer.jsp" />
 
-        <!-- Esta vista solo accede el admin -->
+        <!-- A esta vista solo accede el admin -->
 
     </body>
 </html>

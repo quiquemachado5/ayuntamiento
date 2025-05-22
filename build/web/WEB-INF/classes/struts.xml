@@ -23,6 +23,21 @@
         <action name="logout" class="actions.usuarioAction" method="cierraSesion">
             <result name="success">index.jsp</result>
         </action>
+        <!-- OLVIDAR CONTRA -->
+        <action name="olvidar" class="actions.usuarioAction" method="redirigir">
+            <result name="success">olvidarPassword.jsp</result>
+        </action>
+        
+        <action name="enviarRecuperacion" class="actions.usuarioAction" method="recuperar">
+            <result name="success">olvidarPassword.jsp</result>
+            <result name="error">olvidarPassword.jsp</result>
+        </action>
+        
+        <action name="cambiarPassword" class="actions.usuarioAction" method="cambiar">
+            <result name="success">index.jsp</result>
+            <result name="error">recuperarPassword.jsp</result>
+        </action>
+        
         <!-- LISTAR -->
         <action name="listarUsuarios" class="actions.usuarioAction" method="listar">
             <result name="success">views/usuarios/operacionesUsuarios.jsp</result>
@@ -45,10 +60,15 @@
         <action name="perfil" class="actions.usuarioAction" method="verperfil">
             <result name="success">perfil.jsp</result>
         </action>
-         <!-- VER PERFIL -->
+        <!-- VER PERFIL -->
         <action name="actualizarPerfil" class="actions.usuarioAction" method="actualizar">
             <result name="success">home.jsp</result>
         </action>
+        <!-- SUBIR FOTO TEMPORAL -->
+        <action name="subirFotoTemporal" class="actions.SubirFotoTemporalAction">
+            <result name="success">perfil.jsp</result>
+        </action>
+        
         <!-- ATRAS -->
         <action name="atrasatrasUsu" class="actions.usuarioAction" method="atras">
             <result name="success" type="redirectAction">listarUsuarios</result>

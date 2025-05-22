@@ -17,6 +17,15 @@
     <body>
         <%@ include file="/includes/cabecera.jsp" %>
 
+        <!-- Mensajes de acción (éxito) -->
+        <s:actionmessage cssClass="mensaje-exito" />
+
+        <!-- Mensajes de error generales -->
+        <s:actionerror cssClass="mensaje-error" />
+
+        <!-- Mensajes de error por campo (del validate) -->
+        <s:fielderror cssClass="mensaje-error-campo" />
+
         <!-- Si es ADMIN el usuario muestra los departamentos, y si no lo es no porque no tiene privilegios para esa operación según la lógica de la app -->
         <s:if test="%{#session.usuario.rol == 'ADMIN'}">
             <h2>Listado de departamentos</h2>
@@ -67,12 +76,6 @@
             <h2>No tiene acceso a la gestión de departamentos</h2>
         </s:else>
 
-        <!-- Para mostrar posibles errores por no introducir algún dato -->
-        <s:if test="hasActionErrors()">
-            <div class="error">
-                <s:actionerror cssClass="campo-error" />
-            </div>
-        </s:if>
 
         <!-- Acción que lleva a home.jsp -->
         <a href="home.action" class="s-button">Menú Principal</a>

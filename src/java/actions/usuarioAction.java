@@ -7,11 +7,19 @@ package actions;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
+import dao.EmailUtil;
 import dao.Usuario;
 import dao.UsuarioDAO;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.UUID;
+import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletRequest;
+import org.apache.struts2.ServletActionContext;
 
 /**
  *
@@ -59,6 +67,8 @@ public class usuarioAction extends ActionSupport {
         } else {
             /*Sino se crea un nuevo usuario y se crea la sesión*/
             Usuario usuario = new Usuario(nombre, email, password, telefono, direccion, rol, new HashSet<>(), new HashSet<>());
+            String nombreFoto = dao.buscarFotoEnDisco(usuario.getEmail());
+            usuario.setFotoPerfil(nombreFoto);
             if (dao.crearUsuario(usuario) == true) {
                 ActionContext.getContext().getSession().put("usuario", usuario); // Guardamos el usuario en sesión
                 if ("ADMIN".equals(usuario.getRol())) {
@@ -83,6 +93,8 @@ public class usuarioAction extends ActionSupport {
         Usuario usuario = dao.obtenerUsuarioPorCredenciales(emailLogin, passwordLogin);
 
         if (usuario != null) {
+            String nombreFoto = dao.buscarFotoEnDisco(usuario.getEmail());
+            usuario.setFotoPerfil(nombreFoto);
             ActionContext.getContext().getSession().put("usuario", usuario); // Guardamos el usuario en sesión
             if ("ADMIN".equals(usuario.getRol())) {
                 usuarios = dao.listarUsuarios();
@@ -167,6 +179,11 @@ public class usuarioAction extends ActionSupport {
         usuario.setTelefono(telefono);
         usuario.setDireccion(direccion);
         dao.actualizarUsuario(usuario);
+
+        usuario = dao.obtenerUsuarioPorEmail(email);
+        String nombreFoto = dao.buscarFotoEnDisco(usuario.getEmail());
+        usuario.setFotoPerfil(nombreFoto);
+        // Guardo usuario en sesión para que quede disponible
         ActionContext.getContext().getSession().put("usuario", usuario); // Guardamos el usuario en sesión
         return SUCCESS;
     }
@@ -175,6 +192,51 @@ public class usuarioAction extends ActionSupport {
         UsuarioDAO dao = new UsuarioDAO();
         setUsuarios(dao.listarUsuarios());
         return SUCCESS;
+    }
+
+    public String recuperar() throws MessagingException, UnsupportedEncodingException {
+        UsuarioDAO dao = new UsuarioDAO();
+        Usuario usuario = dao.obtenerUsuarioPorEmail(email);
+
+        //Comprueba el usuario en base al email
+        if (usuario == null) {
+            addActionError("No se ha encontrado ninguna cuenta con ese correo.");
+            return ERROR;
+        }
+
+        HttpServletRequest request = ServletActionContext.getRequest();
+        String serverName = request.getServerName();
+        int serverPort = request.getServerPort();
+        String contextPath = request.getContextPath();
+
+        // Enviar correo con el enlace
+        String enlace = "http://" + serverName + ":" + serverPort + contextPath + "/recuperarPassword.jsp?email=" + URLEncoder.encode(email, "UTF-8");
+
+        // Enviar correo de confirmación
+        String asunto = "Recuperación de contraseña ";
+        String mensaje = "Haz clic aquí para restablecer tu contraseña: " + enlace;
+
+        EmailUtil.sendEmail(email, asunto, mensaje);
+
+        addActionMessage("Te hemos enviado un correo con el enlace de recuperación.");
+        return SUCCESS;
+
+    }
+    
+    public String cambiar(){
+        //cambia la contraseña
+        UsuarioDAO dao = new UsuarioDAO();
+        Usuario u = dao.obtenerUsuarioPorEmail(email);
+        u.setPassword(password);
+        boolean actualizado = dao.actualizarUsuario(u);
+
+        if (actualizado) {
+            addActionMessage("Contraseña actualizada correctamente.");
+            return SUCCESS;
+        } else {
+            addActionError("No se pudo actualizar la contraseña.");
+            return ERROR;
+        }
     }
 
     @Override

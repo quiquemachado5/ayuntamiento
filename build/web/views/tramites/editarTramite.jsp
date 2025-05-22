@@ -17,7 +17,7 @@
     <body>
         <%@ include file="/includes/cabecera.jsp" %>
 
-            <h1>Editar trámite</h1>
+        <h1>Editar trámite</h1>
 
         <s:form action="editarT" method="post">
             <s:select 
@@ -42,7 +42,7 @@
         </s:form>
 
         <a href="atrasatrasTra.action" class="s-button">Volver al listado</a>
-
+        <!-- Siempre incluimos referencia al footer -->
         <jsp:include page="/includes/footer.jsp" />
     </body>
 </html>

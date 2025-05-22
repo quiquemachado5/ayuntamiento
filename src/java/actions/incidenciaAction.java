@@ -127,18 +127,20 @@ public class incidenciaAction extends ActionSupport {
         dao.crearIncidencia(incidencia);
 
         // Enviar correo de confirmación
-        String asunto = "Confirmación del trámite: " + incidencia.getTitulo();
-        String mensaje = "Su trámite ha sido creado correctamente con la siguiente descripción: " + incidencia.getDescripcion();
+        String asunto = "Confirmación de la incidencia: " + incidencia.getTitulo();
+        String mensaje = "Su incidencia ha sido creada correctamente con la siguiente descripción: " + incidencia.getDescripcion();
 
         setEmailUsuario(emailUsuario);
         EmailUtil.sendEmail(emailUsuario, asunto, mensaje);
 
         if (usuario.getRol().equals("ADMIN")) {
             setIncidencias(dao.listarIncidencias());
+            addActionMessage("Incidencia creada con éxito");
             return SUCCESS;
         }
         if (usuario.getRol().equals("CIUDADANO")) {
             setIncidencias(dao.listarIncidenciasPorUsuario(usuario));
+            addActionMessage("Incidencia creada con éxito");
             return SUCCESS;
         } else {
             return ERROR;
@@ -208,10 +210,12 @@ public class incidenciaAction extends ActionSupport {
 
         if (usuario.getRol().equals("ADMIN")) {
             setIncidencias(dao.listarIncidencias());
+            addActionMessage("Incidencia editada con éxito");
             return SUCCESS;
         }
         if (usuario.getRol().equals("CIUDADANO")) {
             setIncidencias(dao.listarIncidenciasPorUsuario(usuario));
+            addActionMessage("Incidencia editada con éxito");
             return SUCCESS;
         } else {
             return ERROR;
@@ -227,10 +231,12 @@ public class incidenciaAction extends ActionSupport {
 
         if (usuario.getRol().equals("ADMIN")) {
             setIncidencias(dao.listarIncidencias());
+            addActionMessage("Incidencia borrada con éxito");
             return SUCCESS;
         }
         if (usuario.getRol().equals("CIUDADANO")) {
             setIncidencias(dao.listarIncidenciasPorUsuario(usuario));
+            addActionMessage("Incidencia borrada con éxito");
             return SUCCESS;
         } else {
             return ERROR;

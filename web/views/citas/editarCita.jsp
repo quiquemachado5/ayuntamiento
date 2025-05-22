@@ -20,8 +20,7 @@
         <h1>Editar cita</h1>
 
         <s:form action="editarC" method="post">
-
-
+        <!-- Igual que crearCita -->
             <s:select 
                 name="tramite.id" 
                 list="tramites" 
@@ -34,6 +33,7 @@
             <!-- No damos la opcion de EDITAR el tramite -->
             <s:textfield name="observaciones" label="Comentarios" readonly="true" />
 
+             <!-- Selecciona dentro de los estados válidos -->
             <s:select 
                 name="estado" 
                 label="Estado" 
@@ -42,13 +42,14 @@
                 disabled="%{estadosValidos.size() == 1}" 
                 />
 
-
+             <!-- Escondemos el id -->
             <s:hidden name="id" />
 
             <s:hidden name="formulario" value="editar" />
             <s:submit value="Editar cita" />
         </s:form>
 
+        <!-- Botón atrás -->
         <a href="atrasatrasCit.action" class="s-button">Volver al listado</a>
 
         <jsp:include page="/includes/footer.jsp" />

@@ -1,7 +1,13 @@
+<%-- 
+    Document   : cabecera
+    Created on : 16-may-2025, 16:17:20
+    Author     : emdominguez
+--%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <footer class="footer" style="padding: 0;">
 
-    <!-- Slider de noticias moderno -->
+    <!-- Slider de noticias que se van repitiendo cuando acaban -->
     <div class="news-ticker-container">
         <div class="news-ticker-track" id="newsTickerTrack">
             <div class="news-item">📰 Acaba la Feria de Abril con ganancias</div>

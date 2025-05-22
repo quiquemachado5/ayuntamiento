@@ -16,8 +16,8 @@ import javax.mail.internet.*;
 public class EmailUtil {
 
     public static void sendEmail(String to, String subject, String body) throws MessagingException {
-        final String from = "quiquemachadodguez@gmail.com";            // Tu correo
-        final String password = "fytd egti vucc lqdt";  // Contraseña o clave de app
+        final String from = "quiquemachadodguez@gmail.com";            // mi correo
+        final String password = "fytd egti vucc lqdt";  // Contraseña o clave de app desde donde envio el correo //CONFIDENCIAL
 
         // Configuración del servidor SMTP de Gmail
         Properties props = new Properties();

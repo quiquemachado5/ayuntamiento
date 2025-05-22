@@ -46,6 +46,7 @@
             <s:submit value="Crear incidencia" />
         </s:form>
 
+        <!-- Botón atrás -->
         <a href="atrasatrasInci.action" class="s-button">Volver al listado</a>
 
         <jsp:include page="/includes/footer.jsp" />

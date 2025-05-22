@@ -17,6 +17,15 @@
     <body>
         <%@ include file="/includes/cabecera.jsp" %>
 
+        <!-- Mensajes de acción (éxito) -->
+        <s:actionmessage cssClass="mensaje-exito" />
+
+        <!-- Mensajes de error generales -->
+        <s:actionerror cssClass="mensaje-error" />
+
+        <!-- Mensajes de error por campo (del validate) -->
+        <s:fielderror cssClass="mensaje-error-campo" />
+
         <!-- El ciudadano normal solo ve las incidencias suyas y el admin todas -->
         <!-- El admin por lógica no puede crear incidencias, solo las crea el ciudadano -->
         <s:if test="#session.usuario.rol == 'ADMIN'">
@@ -43,6 +52,7 @@
                                 <td><s:property value="#i.descripcion" /></td>
                                 <td><s:property value="#i.estado" /></td>
                                 <td>
+                                    <!-- Se actualiza solamente si no está cerrada -->
                                     <s:if test="#i.estado != 'CERRADA'">
                                         <s:url var="actualizarUrl" action="editarIncidencia">
                                             <s:param name="id" value="#i.id"/>
@@ -50,6 +60,7 @@
                                         </s:url>
                                         <a href="${actualizarUrl}" class="btn-accion">Actualizar</a>
                                     </s:if>
+                                    <!-- Se borra si esta cerrada -->
                                     <s:if test="#i.estado == 'CERRADA'">
                                         <s:url var="borrarUrl" action="borrarIncidencia">
                                             <s:param name="id" value="#i.id"/>

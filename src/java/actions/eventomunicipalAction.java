@@ -66,6 +66,7 @@ public class eventomunicipalAction extends ActionSupport {
         dao.crearEvento(e);
         eventos = dao.listarEventos();
         setEventos(eventos);
+        addActionMessage("Evento creado con éxito");
         return SUCCESS;
     }
 
@@ -92,6 +93,7 @@ public class eventomunicipalAction extends ActionSupport {
         dao.actualizarEvento(e);
         eventos = dao.listarEventos();
         setEventos(eventos);
+        addActionMessage("Evento editado con éxito");
         return SUCCESS;
     }
 
@@ -100,6 +102,7 @@ public class eventomunicipalAction extends ActionSupport {
         EventoMunicipalDAO dao = new EventoMunicipalDAO();
         dao.borrarEvento(dao.obtenerEventoId(id));
         setEventos(dao.listarEventos());
+        addActionMessage("Evento borrado con éxito");
         return SUCCESS;
     }
 

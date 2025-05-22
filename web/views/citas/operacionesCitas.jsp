@@ -17,6 +17,16 @@
     <body>
         <%@ include file="/includes/cabecera.jsp" %>
 
+        <!-- Mensajes de acción (éxito) -->
+        <s:actionmessage cssClass="mensaje-exito" />
+
+        <!-- Mensajes de error generales -->
+        <s:actionerror cssClass="mensaje-error" />
+
+        <!-- Mensajes de error por campo (del validate) -->
+        <s:fielderror cssClass="mensaje-error-campo" />
+
+        <!-- Si el usuario es admin muestra la tabla diferente a usuario. Un admin puede borrar y editar -->
         <s:if test="#session.usuario.rol == 'ADMIN'">
             <h2>Listado de citas</h2>
 
@@ -45,12 +55,14 @@
                                 <td><s:property value="#c.estado" /></td>
                                 <td><s:property value="#c.observaciones" /></td>
                                 <td>
+                                    <!-- Solo se edita si no está en estado atendida -->
                                     <s:if test="#c.estado != 'ATENDIDA'">
                                         <s:url var="actualizarUrl" action="editarCita">
                                             <s:param name="id" value="#c.id"/>
                                         </s:url>
                                         <a href="${actualizarUrl}" class="btn-accion">Editar</a>
                                     </s:if>
+                                    <!-- Se borra si ha sido atendida únicamente -->
                                     <s:if test="#c.estado == 'ATENDIDA'">
                                         <s:url var="borrarUrl" action="borrarCita">
                                             <s:param name="id" value="#c.id"/>
@@ -62,6 +74,7 @@
                         </s:iterator>
                     </s:if>
                     <s:else>
+                        <!-- Si no hay citas no muestra nada, solo este mensaje-->
                         <tr>
                             <td colspan="5" style="text-align: center;">No hay citas aún.</td>
                         </tr>
@@ -107,7 +120,7 @@
                                         <s:param name="id" value="#c.id" />
                                     </s:url>
                                     <a href="${pdfUrl}" class="btn-accion">📄 Descargar cita</a>
-
+                                    <!-- El usuario además de ver las citas, puede descargar en pdf el acuse de recibo de la cita -->
                                 </td>
                             </tr>
                         </s:iterator>
@@ -120,9 +133,9 @@
                 </tbody>
             </table>
         </s:else>
-
+            
+        <!-- Botón atrás para el menú principal -->
         <a href="home.action" class="s-button">Menú Principal</a>
-
 
         <jsp:include page="/includes/footer.jsp" />
     </body>

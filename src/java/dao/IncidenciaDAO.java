@@ -93,6 +93,7 @@ public class IncidenciaDAO {
         session.close();
     }
 
+    //Método para el total de incidencias que vemos en home
     public int totalIncidencias() {
         Session session = HibernateUtil.getSessionFactory().openSession();
         org.hibernate.Transaction tx = session.beginTransaction();
@@ -105,6 +106,7 @@ public class IncidenciaDAO {
         return total != null ? total.intValue() : 0;
     }
 
+    //Método para el total de incidencias individual por usuario que vemos en home
     public int totalIncidenciasIndividual(Usuario usuario) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         org.hibernate.Transaction tx = session.beginTransaction();

@@ -20,6 +20,7 @@
         <s:if test="#session.usuario.rol == 'ADMIN'">
             <s:form action="editarI" method="post">
 
+                 <!-- Las incidencias se crean en torno a un departamento que las atenderá -->
                 <s:select 
                     label="Departamento"
                     name="departamento.id"
@@ -32,6 +33,7 @@
                 <s:textfield name="titulo" label="Titulo" />
                 <s:textfield name="descripcion" label="Descripción" />
 
+                 <!-- Muestra los estados disponibles -->
                 <s:select 
                     name="estado" 
                     label="Estado" 

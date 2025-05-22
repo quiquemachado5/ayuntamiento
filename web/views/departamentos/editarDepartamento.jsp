@@ -31,6 +31,7 @@
             <s:submit value="Editar departamento" />
         </s:form>
 
+        <!-- Botón atrás -->
         <a href="atrasD.action" class="s-button">Volver al listado</a>
 
         <jsp:include page="/includes/footer.jsp" />

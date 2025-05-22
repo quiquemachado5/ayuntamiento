@@ -19,6 +19,7 @@
         <%@ include file="/includes/cabecera.jsp" %>
         <!-- Título sección -->
         <h1>Crear departamento</h1>
+
         <!-- Formulario -->
         <s:form action="crearD" method="post">
             <s:textfield name="nombre" label="Nombre" />

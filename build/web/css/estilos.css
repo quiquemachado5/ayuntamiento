@@ -8,8 +8,7 @@ and open the template in the editor.
     Author     : emdominguez
 */
 
-/* Reset básico */
-/* Reset básico */
+
 body {
     margin: 0;
     font-family: 'Segoe UI', sans-serif;
@@ -70,6 +69,8 @@ input[type="submit"], .s-button {
     cursor: pointer;
     font-weight: bold;
     text-decoration:none;
+    
+    
 }
 
 
@@ -227,7 +228,7 @@ input[type="text"], input[type="password"], select {
 }
 
 .nombre-usuario {
-    color: #fff;
+    color: #940444;
     margin-right: 10px;
     font-weight: bold;
 }
@@ -288,4 +289,42 @@ input[type="text"], input[type="password"], select {
     font-weight: bold;
     margin: 10px 0;
 }
+
+ul, ol {
+    list-style: none; /* Quita las viñetas o números */
+    padding-left: 0; 
+    margin-left: 0;   
+}
+
+
+.mensaje-exito,
+.mensaje-error,
+.mensaje-error-campo {
+    list-style: none;
+    max-width: 500px;       /* ancho máximo */
+    margin: 15px auto;      /* margen arriba y abajo, centrado horizontal */
+    padding: 10px;
+    border-radius: 4px;
+    text-align: center;     /* texto centrado */
+}
+
+.mensaje-exito {
+    background-color: #d4edda;
+    border-left: 5px solid #28a745;
+    color: #155724;
+}
+
+.mensaje-error {
+    background-color: #f8d7da;
+    border-left: 5px solid #dc3545;
+    color: #721c24;
+}
+
+.mensaje-error-campo {
+    background-color: #fff3cd;
+    border-left: 5px solid #ffc107;
+    color: #856404;
+}
+
+
 

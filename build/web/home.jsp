@@ -23,10 +23,10 @@
 
             <!-- Menú didáctico con fotos para acceder a cada apartado de la web  -->
             <div class="menu-grid">
-
                 <s:set var="isAdmin" value="#session.usuario.rol == 'ADMIN'" />
                 <s:set var="isCiudadano" value="#session.usuario.rol == 'CIUDADANO'" />
 
+                <!-- Si es ciudadano, NO TIENE HABILITADO ESTE BOTÓN -->
                 <div class="menu-card" 
                      style="<s:if test='%{#isCiudadano}'>filter: grayscale(100%) opacity(0.6); pointer-events: none; position: relative;</s:if>">
                          <img src="img/usuarios.jpg" alt="Gestión de Usuarios" />
@@ -43,6 +43,7 @@
                         </a>
                      </div>
 
+                     <!-- Botón DEPARTAMENTOS , SI ES CIUDADANO NO PUEDE ACCEDER -> PROHIBIDO-->
                      <div class="menu-card" 
                           style="<s:if test='%{#isCiudadano}'>filter: grayscale(100%) opacity(0.6); pointer-events: none; position: relative;</s:if>">
                          <img src="img/departamentos.jpg" alt="Gestión de Departamentos" />
@@ -58,7 +59,7 @@
                             Gestionar
                         </a>
                      </div>
-
+                     <!-- Botónes de citas,eventos,incidencias y trámites a los que puede acceder tanto usuario como admin -->
                      <div class="menu-card">
                          <img src="img/citas.jpg" alt="Gestión de Citas" />
                          <h2>Citas</h2>

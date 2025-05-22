@@ -68,7 +68,7 @@ public class citasAction extends ActionSupport {
 
         document.open();
 
-        // 1. Encabezado - Título
+        // Encabezado - Título
         Font fontTitulo = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18, new Color(148, 4, 68)); // color #940444
         Paragraph titulo = new Paragraph("Resumen de Cita", fontTitulo);
         titulo.setAlignment(Element.ALIGN_CENTER);
@@ -82,7 +82,7 @@ public class citasAction extends ActionSupport {
 
         document.add(Chunk.NEWLINE);
 
-        // 2. Información del emisor (puedes personalizar)
+        // Información del emisor
         Font fontEmisor = FontFactory.getFont(FontFactory.HELVETICA, 10, Color.BLACK);
         Paragraph emisor = new Paragraph("Centro de Atención - Dirección: Plaza Nueva 1, Sevilla\nTel: 954 123 456 - Email: info@aytosevilla.es", fontEmisor);
         emisor.setAlignment(Element.ALIGN_CENTER);
@@ -90,7 +90,7 @@ public class citasAction extends ActionSupport {
 
         document.add(Chunk.NEWLINE);
 
-        // 3. Tabla con detalles de la cita
+        //Tabla con detalles de la cita
         PdfPTable table = new PdfPTable(2);
         table.setWidthPercentage(100);
         table.setSpacingBefore(10f);
@@ -102,7 +102,6 @@ public class citasAction extends ActionSupport {
         Font fontBody = FontFactory.getFont(FontFactory.HELVETICA, 11, Color.BLACK);
 
         // Método auxiliar para crear celdas con estilo
-
         table.addCell(createCell("Trámite:", fontHeader, true));
         table.addCell(createCell(cita.getTramite().getNombre(), fontBody, false));
         table.addCell(createCell("Usuario:", fontHeader, true));
@@ -118,13 +117,13 @@ public class citasAction extends ActionSupport {
 
         document.add(table);
 
-        // 4. Nota o instrucción final
+        // Nota o instrucción final
         Font fontNota = FontFactory.getFont(FontFactory.HELVETICA_OBLIQUE, 9, Color.DARK_GRAY);
         Paragraph nota = new Paragraph("Por favor, llegue 10 minutos antes de la cita. En caso de necesitar reprogramar, contacte con nosotros con al menos 24 horas de antelación.", fontNota);
         nota.setAlignment(Element.ALIGN_LEFT);
         document.add(nota);
 
-        // 5. Firma simulada y fecha de generación
+        // Firma simulada y fecha de generación
         document.add(Chunk.NEWLINE);
         Font fontFirma = FontFactory.getFont(FontFactory.HELVETICA_OBLIQUE, 10, new Color(100, 100, 100));
         Paragraph firma = new Paragraph("Generado por Centro de Atención del Ayuntamiento de Sevilla", fontFirma);
@@ -200,6 +199,7 @@ public class citasAction extends ActionSupport {
         Cita cita = new Cita(tramite, usuario, fecha, hora, estado, observaciones);
         dao.crearCita(cita);
         setCitas(dao.listarCitas());
+        addActionMessage("Cita creada con éxito");
         return SUCCESS;
     }
 
@@ -289,6 +289,7 @@ public class citasAction extends ActionSupport {
         setTramites(daoD.listarTramites());
 
         setCitas(dao.listarCitas());
+        addActionMessage("Cita editada con éxito");
         return SUCCESS;
     }
 
@@ -297,6 +298,7 @@ public class citasAction extends ActionSupport {
         Cita c = dao.obtenerCitaPorId(id);
         dao.eliminarCita(c);
         setCitas(dao.listarCitas());
+        addActionMessage("Cita borrada con éxito");
         return SUCCESS;
     }
 
