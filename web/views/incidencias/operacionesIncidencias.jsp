@@ -16,6 +16,15 @@
     </head>
     <body>
         <%@ include file="/includes/cabecera.jsp" %>
+        
+        <!-- Mensajes de acción (éxito) -->
+        <s:actionmessage cssClass="mensaje-exito" />
+
+        <!-- Mensajes de error generales -->
+        <s:actionerror cssClass="mensaje-error" />
+
+        <!-- Mensajes de error por campo (del validate) -->
+        <s:fielderror cssClass="mensaje-error-campo" />
 
         <!-- El ciudadano normal solo ve las incidencias suyas y el admin todas -->
         <!-- El admin por lógica no puede crear incidencias, solo las crea el ciudadano -->

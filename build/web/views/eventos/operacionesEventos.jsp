@@ -15,6 +15,15 @@
     </head>
     <body>
         <%@ include file="/includes/cabecera.jsp" %>
+        
+        <!-- Mensajes de acción (éxito) -->
+        <s:actionmessage cssClass="mensaje-exito" />
+
+        <!-- Mensajes de error generales -->
+        <s:actionerror cssClass="mensaje-error" />
+
+        <!-- Mensajes de error por campo (del validate) -->
+        <s:fielderror cssClass="mensaje-error-campo" />
 
         <!-- Solo crean eventos si es admin -->
         <s:if test="%{#session.usuario.rol == 'ADMIN'}">

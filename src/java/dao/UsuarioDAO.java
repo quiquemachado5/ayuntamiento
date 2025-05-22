@@ -5,19 +5,21 @@
  */
 package dao;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.apache.struts2.ServletActionContext;
 
 /**
  *
  * @author emdominguez
  */
 public class UsuarioDAO {
-    /*Uso session.close para evitar el error de Nested*/
 
+    /*Uso session.close para evitar el error de Nested*/
     // Crear usuario
     public boolean crearUsuario(Usuario usuario) {
         Transaction tx = null;
@@ -165,6 +167,21 @@ public class UsuarioDAO {
         tx.commit();
         session.close();
         return true;
+    }
+
+    public String buscarFotoEnDisco(String email) {
+        // Suponiendo que la foto se guarda como "email.jpg" en la carpeta img/tmp
+        String ruta = ServletActionContext.getServletContext().getRealPath("/img/tmp/");
+        System.out.println("Ruta real en servidor: " + ruta);
+
+        String nombreArchivo = "mini_" + email + ".png";
+
+        File archivo = new File(ruta + nombreArchivo);
+        if (archivo.exists()) {
+            return nombreArchivo;
+        } else {
+            return null; // no hay foto
+        }
     }
 
 }

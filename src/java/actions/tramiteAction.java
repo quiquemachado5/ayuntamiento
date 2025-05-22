@@ -61,6 +61,7 @@ public class tramiteAction extends ActionSupport {
         Tramite tramite = new Tramite(departamento, nombre, descripcion, activo, new HashSet(0));
         dao.crearTramite(tramite);
         setTramites(dao.listarTramites());
+        addActionMessage("Tramite creado con éxito");
         return SUCCESS;
     }
 
@@ -106,10 +107,12 @@ public class tramiteAction extends ActionSupport {
 
         if (usuario.getRol().equals("ADMIN")) {
             setTramites(dao.listarTramites());
+            addActionMessage("Tramite editado con éxito");
             return SUCCESS;
         }
         if (usuario.getRol().equals("CIUDADANO")) {
             setTramites(dao.listarTramites());
+            addActionMessage("Tramite editado con éxito");
             return SUCCESS;
         } else {
             return ERROR;
@@ -132,10 +135,12 @@ public class tramiteAction extends ActionSupport {
 
         if (usuario.getRol().equals("ADMIN")) {
             setTramites(dao.listarTramites());
+            addActionMessage("Trámite borrado con éxito");
             return SUCCESS;
         }
         if (usuario.getRol().equals("CIUDADANO")) {
             setTramites(dao.listarTramites());
+            addActionMessage("Trámite borrado con éxito");
             return SUCCESS;
         } else {
             return ERROR;

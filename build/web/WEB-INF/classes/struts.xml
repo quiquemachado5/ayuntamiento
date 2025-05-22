@@ -49,6 +49,11 @@
         <action name="actualizarPerfil" class="actions.usuarioAction" method="actualizar">
             <result name="success">home.jsp</result>
         </action>
+        <!-- SUBIR FOTO TEMPORAL -->
+        <action name="subirFotoTemporal" class="actions.SubirFotoTemporalAction">
+            <result name="success">perfil.jsp</result>
+        </action>
+        
         <!-- ATRAS -->
         <action name="atrasatrasUsu" class="actions.usuarioAction" method="atras">
             <result name="success" type="redirectAction">listarUsuarios</result>

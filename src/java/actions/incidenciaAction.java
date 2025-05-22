@@ -135,10 +135,12 @@ public class incidenciaAction extends ActionSupport {
 
         if (usuario.getRol().equals("ADMIN")) {
             setIncidencias(dao.listarIncidencias());
+            addActionMessage("Incidencia creada con éxito");
             return SUCCESS;
         }
         if (usuario.getRol().equals("CIUDADANO")) {
             setIncidencias(dao.listarIncidenciasPorUsuario(usuario));
+            addActionMessage("Incidencia creada con éxito");
             return SUCCESS;
         } else {
             return ERROR;
@@ -208,10 +210,12 @@ public class incidenciaAction extends ActionSupport {
 
         if (usuario.getRol().equals("ADMIN")) {
             setIncidencias(dao.listarIncidencias());
+            addActionMessage("Incidencia editada con éxito");
             return SUCCESS;
         }
         if (usuario.getRol().equals("CIUDADANO")) {
             setIncidencias(dao.listarIncidenciasPorUsuario(usuario));
+            addActionMessage("Incidencia editada con éxito");
             return SUCCESS;
         } else {
             return ERROR;
@@ -227,10 +231,12 @@ public class incidenciaAction extends ActionSupport {
 
         if (usuario.getRol().equals("ADMIN")) {
             setIncidencias(dao.listarIncidencias());
+            addActionMessage("Incidencia borrada con éxito");
             return SUCCESS;
         }
         if (usuario.getRol().equals("CIUDADANO")) {
             setIncidencias(dao.listarIncidenciasPorUsuario(usuario));
+            addActionMessage("Incidencia borrada con éxito");
             return SUCCESS;
         } else {
             return ERROR;

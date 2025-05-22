@@ -57,6 +57,7 @@ public class departamentoAction extends ActionSupport {
         dao.crearDepartamento(d);
         departamentos = dao.listarDepartamentos();
         setDepartamentos(departamentos);
+        addActionMessage("Departamento creado correctamente.");
         return SUCCESS;
     }
 
@@ -76,6 +77,7 @@ public class departamentoAction extends ActionSupport {
         dao.actualizarDepartamento(d);
         departamentos = dao.listarDepartamentos();
         setDepartamentos(departamentos);
+        addActionMessage("Departamento editado con éxito");
         return SUCCESS;
     }
 
@@ -97,6 +99,7 @@ public class departamentoAction extends ActionSupport {
                 dao.borrarDepartamento(d.getId()); /* Si no , se borra el departamento */
                 departamentos = dao.listarDepartamentos();
                 setDepartamentos(departamentos);
+                addActionMessage("Departamento borrado con éxito");
                 return SUCCESS;
             }
         }

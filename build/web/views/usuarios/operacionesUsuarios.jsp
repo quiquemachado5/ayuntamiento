@@ -16,6 +16,16 @@
     </head>
     <body>
         <%@ include file="/includes/cabecera.jsp" %>
+        
+        <!-- Mensajes de acción (éxito) -->
+        <s:actionmessage cssClass="mensaje-exito" />
+
+        <!-- Mensajes de error generales -->
+        <s:actionerror cssClass="mensaje-error" />
+
+        <!-- Mensajes de error por campo (del validate) -->
+        <s:fielderror cssClass="mensaje-error-campo" />
+        
         <!-- Sino es admin no puede entrar el usuario ya que la lógica es que el admin elimnine o actualice usuarios, se registran (crean) en el login -->
         <s:if test="%{#session.usuario.rol == 'ADMIN'}">
             <h2>Listado de usuarios</h2>

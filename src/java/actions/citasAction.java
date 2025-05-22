@@ -200,6 +200,7 @@ public class citasAction extends ActionSupport {
         Cita cita = new Cita(tramite, usuario, fecha, hora, estado, observaciones);
         dao.crearCita(cita);
         setCitas(dao.listarCitas());
+        addActionMessage("Cita creada con éxito");
         return SUCCESS;
     }
 
@@ -289,6 +290,7 @@ public class citasAction extends ActionSupport {
         setTramites(daoD.listarTramites());
 
         setCitas(dao.listarCitas());
+        addActionMessage("Cita editada con éxito");
         return SUCCESS;
     }
 
@@ -297,6 +299,7 @@ public class citasAction extends ActionSupport {
         Cita c = dao.obtenerCitaPorId(id);
         dao.eliminarCita(c);
         setCitas(dao.listarCitas());
+        addActionMessage("Cita borrada con éxito");
         return SUCCESS;
     }
 

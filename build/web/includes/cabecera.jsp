@@ -17,6 +17,13 @@
         <s:if test="%{#session.usuario != null}"> <!-- Si está logado a -->
             <span class="nombre-usuario">Bienvenido, <s:property value="#session.usuario.nombre"/> - <s:property value="#session.usuario.rol"/></span>
 
+            <s:if test="#session.usuario.fotoPerfil != null">
+                <img src="img/tmp/<s:property value="#session.usuario.fotoPerfil" />"
+                     alt="Foto de perfil"
+                     style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;" />
+            </s:if>
+
+
             <!-- Botón Ver perfil -->
             <s:form action="perfil" method="post" cssStyle="display:inline;all:unset;">
                 <s:submit value="Ver perfil" cssClass="boton-cerrar-sesion"/>

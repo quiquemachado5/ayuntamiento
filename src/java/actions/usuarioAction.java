@@ -11,6 +11,7 @@ import dao.Usuario;
 import dao.UsuarioDAO;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -59,6 +60,8 @@ public class usuarioAction extends ActionSupport {
         } else {
             /*Sino se crea un nuevo usuario y se crea la sesión*/
             Usuario usuario = new Usuario(nombre, email, password, telefono, direccion, rol, new HashSet<>(), new HashSet<>());
+            String nombreFoto = dao.buscarFotoEnDisco(usuario.getEmail());
+            usuario.setFotoPerfil(nombreFoto);
             if (dao.crearUsuario(usuario) == true) {
                 ActionContext.getContext().getSession().put("usuario", usuario); // Guardamos el usuario en sesión
                 if ("ADMIN".equals(usuario.getRol())) {
@@ -83,6 +86,8 @@ public class usuarioAction extends ActionSupport {
         Usuario usuario = dao.obtenerUsuarioPorCredenciales(emailLogin, passwordLogin);
 
         if (usuario != null) {
+            String nombreFoto = dao.buscarFotoEnDisco(usuario.getEmail());
+            usuario.setFotoPerfil(nombreFoto);
             ActionContext.getContext().getSession().put("usuario", usuario); // Guardamos el usuario en sesión
             if ("ADMIN".equals(usuario.getRol())) {
                 usuarios = dao.listarUsuarios();
@@ -167,6 +172,11 @@ public class usuarioAction extends ActionSupport {
         usuario.setTelefono(telefono);
         usuario.setDireccion(direccion);
         dao.actualizarUsuario(usuario);
+
+        usuario = dao.obtenerUsuarioPorEmail(email);
+        String nombreFoto = dao.buscarFotoEnDisco(usuario.getEmail()); 
+        usuario.setFotoPerfil(nombreFoto);
+        // Guardo usuario en sesión para que quede disponible
         ActionContext.getContext().getSession().put("usuario", usuario); // Guardamos el usuario en sesión
         return SUCCESS;
     }
