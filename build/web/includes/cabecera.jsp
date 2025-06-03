@@ -21,7 +21,7 @@
                 <s:if test="#session.usuario.fotoPerfil != null">
                     <img src="img/perfiles/<s:property value='#session.usuario.fotoPerfil' />?ts=<%=System.currentTimeMillis()%>"
                          alt="Foto de perfil"
-                         style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;" />
+                         style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;" />l
                 </s:if>
 
 

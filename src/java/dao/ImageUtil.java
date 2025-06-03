@@ -19,7 +19,7 @@ import javax.imageio.ImageIO;
 
 public class ImageUtil {
 
-    //Hace el resize de la foto, cuando llamamos desde editar el perfil
+    //Hace el resize de la foto, cuando llamamos desde editar el perfiindeolperf
     public static void resize(File input, File output, int width, int height) {
         try {
             BufferedImage originalImage = ImageIO.read(input);

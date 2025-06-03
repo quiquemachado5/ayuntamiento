@@ -39,7 +39,7 @@
             
         </div>
         
-        <a href="home.action" class="s-button">Menú Principal</a>
+        <a href="index.jsp" class="s-button">Menú Principal</a>
 
         <jsp:include page="/includes/footer.jsp" />
     </body>

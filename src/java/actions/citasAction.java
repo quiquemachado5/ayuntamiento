@@ -163,13 +163,32 @@ public class citasAction extends ActionSupport {
 
     public String listar() {
         CitaDAO dao = new CitaDAO();
-        setCitas(dao.listarCitas());
+        
+        Map<String, Object> session = ActionContext.getContext().getSession();
+        usuario = (Usuario) session.get("usuario");
+        
+        if (usuario.getRol().equals("ADMIN")) {
+            citas = dao.listarCitas(); // Admin ve todas
+        } else {
+            citas = dao.obtenerPorUsuario(usuario); // Ciudadano ve solo las suyas
+        }
+        
+        setCitas(citas);
         return SUCCESS;
     }
 
     public String atras() {
         CitaDAO dao = new CitaDAO();
-        setCitas(dao.listarCitas());
+        Map<String, Object> session = ActionContext.getContext().getSession();
+        usuario = (Usuario) session.get("usuario");
+        
+        if (usuario.getRol().equals("ADMIN")) {
+            citas = dao.listarCitas(); // Admin ve todas
+        } else {
+            citas = dao.obtenerPorUsuario(usuario); // Ciudadano ve solo las suyas
+        }
+        
+        setCitas(citas);
         return SUCCESS;
     }
 
@@ -198,7 +217,15 @@ public class citasAction extends ActionSupport {
 
         Cita cita = new Cita(tramite, usuario, fecha, hora, estado, observaciones);
         dao.crearCita(cita);
-        setCitas(dao.listarCitas());
+        usuario = (Usuario) session.get("usuario");
+        
+        if (usuario.getRol().equals("ADMIN")) {
+            citas = dao.listarCitas(); // Admin ve todas
+        } else {
+            citas = dao.obtenerPorUsuario(usuario); // Ciudadano ve solo las suyas
+        }
+        
+        setCitas(citas);
         addActionMessage("Cita creada con éxito");
         return SUCCESS;
     }
@@ -288,7 +315,15 @@ public class citasAction extends ActionSupport {
 
         setTramites(daoD.listarTramites());
 
-        setCitas(dao.listarCitas());
+        usuario = (Usuario) session.get("usuario");
+        
+        if (usuario.getRol().equals("ADMIN")) {
+            citas = dao.listarCitas(); // Admin ve todas
+        } else {
+            citas = dao.obtenerPorUsuario(usuario); // Ciudadano ve solo las suyas
+        }
+        
+        setCitas(citas);
         addActionMessage("Cita editada con éxito");
         return SUCCESS;
     }
@@ -297,7 +332,16 @@ public class citasAction extends ActionSupport {
         CitaDAO dao = new CitaDAO();
         Cita c = dao.obtenerCitaPorId(id);
         dao.eliminarCita(c);
-        setCitas(dao.listarCitas());
+        Map<String, Object> session = ActionContext.getContext().getSession();
+        usuario = (Usuario) session.get("usuario");
+        
+        if (usuario.getRol().equals("ADMIN")) {
+            citas = dao.listarCitas(); // Admin ve todas
+        } else {
+            citas = dao.obtenerPorUsuario(usuario); // Ciudadano ve solo las suyas
+        }
+        
+        setCitas(citas);
         addActionMessage("Cita borrada con éxito");
         return SUCCESS;
     }

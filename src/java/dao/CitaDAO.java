@@ -28,6 +28,16 @@ public class CitaDAO {
         session.close();
         return citas;
     }
+
+     public List<Cita> obtenerPorUsuario(Usuario usuario) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Query query = session.createQuery("SELECT c FROM Cita c JOIN FETCH c.tramite JOIN FETCH c.usuario WHERE usuario_id = :id");
+        query.setParameter("id", usuario.getId());
+        List<Cita> lista = query.list();
+        
+        session.close();
+        return lista;
+    }
     
     public void crearCita(Cita cita) {
         Session session = HibernateUtil.getSessionFactory().openSession();
@@ -46,26 +56,25 @@ public class CitaDAO {
             session.close();
         }
     }
-    
-   public Cita obtenerCitaPorId(int id) {
-    Session session = HibernateUtil.getSessionFactory().openSession();
-    try {
-        Cita cita = (Cita) session.get(Cita.class, id);
 
-        if (cita != null) {
-            // Inicializar relaciones para que estén disponibles fuera del session
-            Hibernate.initialize(cita.getTramite());
-            Hibernate.initialize(cita.getUsuario());
+    public Cita obtenerCitaPorId(int id) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            Cita cita = (Cita) session.get(Cita.class, id);
+
+            if (cita != null) {
+                // Inicializar relaciones para que estén disponibles fuera del session
+                Hibernate.initialize(cita.getTramite());
+                Hibernate.initialize(cita.getUsuario());
+            }
+
+            return cita;
+        } finally {
+            session.close();
         }
-
-        return cita;
-    } finally {
-        session.close();
     }
-}
 
-    
-     public void actualizarCita(Cita cita) {
+    public void actualizarCita(Cita cita) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         org.hibernate.Transaction tx = null;
 
@@ -74,13 +83,15 @@ public class CitaDAO {
             session.update(cita);
             tx.commit();
         } catch (Exception e) {
-            if (tx != null) tx.rollback();
+            if (tx != null) {
+                tx.rollback();
+            }
             e.printStackTrace();
         } finally {
             session.close();
         }
     }
-    
+
     public void eliminarCita(Cita cita) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         org.hibernate.Transaction tx = null;
@@ -90,11 +101,15 @@ public class CitaDAO {
             session.delete(cita);
             tx.commit();
         } catch (Exception e) {
-            if (tx != null) tx.rollback();
+            if (tx != null) {
+                tx.rollback();
+            }
             e.printStackTrace();
         } finally {
             session.close();
         }
     }
-}
 
+   
+
+}
