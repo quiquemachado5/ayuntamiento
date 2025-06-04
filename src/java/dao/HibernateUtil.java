@@ -1,35 +1,39 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dao;
 
-import org.hibernate.cfg.AnnotationConfiguration;
 import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+import java.net.URI;
 
-/**
- * Hibernate Utility class with a convenient method to get Session Factory
- * object.
- *
- * @author emdominguez
- */
 public class HibernateUtil {
+    private static SessionFactory sessionFactory;
 
-    private static final SessionFactory sessionFactory;
-    
     static {
         try {
-            // Create the SessionFactory from standard (hibernate.cfg.xml) 
-            // config file.
-            sessionFactory = new AnnotationConfiguration().configure().buildSessionFactory();
-        } catch (Throwable ex) {
-            // Log the exception. 
-            System.err.println("Initial SessionFactory creation failed." + ex);
-            throw new ExceptionInInitializerError(ex);
+            Configuration configuration = new Configuration();
+            configuration.configure(); // carga hibernate.cfg.xml
+
+            String databaseUrl = System.getenv("DATABASE_URL");
+            if (databaseUrl != null) {
+                URI dbUri = new URI(databaseUrl);
+
+                String userInfo = dbUri.getUserInfo();
+                String username = userInfo.split(":")[0];
+                String password = userInfo.split(":")[1];
+                String jdbcUrl = "jdbc:mysql://" + dbUri.getHost() + ":" + dbUri.getPort() + dbUri.getPath();
+
+                configuration.setProperty("hibernate.connection.url", jdbcUrl);
+                configuration.setProperty("hibernate.connection.username", username);
+                configuration.setProperty("hibernate.connection.password", password);
+                configuration.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
+            }
+
+            sessionFactory = configuration.buildSessionFactory();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new ExceptionInInitializerError(e);
         }
     }
-    
+
     public static SessionFactory getSessionFactory() {
         return sessionFactory;
     }
