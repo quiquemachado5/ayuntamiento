@@ -41,11 +41,11 @@ Contributor(s):
 -->
 <hibernate-configuration>
     <session-factory>
-        <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
-        <property name="hibernate.connection.url">jdbc:mysql://nozomi.proxy.rlwy.net:27764/railway</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="hibernate.connection.url">jdbc:mysql://nozomi.proxy.rlwy.net:27764/railway?useSSL=false&amp;allowPublicKeyRetrieval=true&amp;serverTimezone=UTC</property>
         <property name="hibernate.connection.username">root</property>
         <property name="hibernate.connection.password">xGsNjtBmAmxENhPQdWAHkSkUcIIgpGQr</property>
-        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
 
         <property name="current_session_context_class">thread</property>
         <property name="hibernate.show_sql">true</property>
